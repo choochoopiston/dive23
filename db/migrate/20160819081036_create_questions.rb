@@ -8,9 +8,9 @@ class CreateQuestions < ActiveRecord::Migration
       t.integer :favorite_counts, default: 0
       t.integer :posi_counts, default: 0
       t.integer :nega_counts, default: 0
+      t.boolean :unavailable_flag, default: false
 
       t.timestamps null: false
     end
-    add_index :questions, :favorite_counts
   end
 end
