@@ -18,15 +18,15 @@ ActiveRecord::Schema.define(version: 20160819081036) do
 
   create_table "questions", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "title",                            null: false
-    t.text     "content",                          null: false
+    t.string   "title",                           null: false
+    t.text     "content",                         null: false
     t.string   "photo"
-    t.integer  "favorite_counts",  default: 0
-    t.integer  "posi_counts",      default: 0
-    t.integer  "nega_counts",      default: 0
-    t.boolean  "unavailable_flag", default: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.integer  "favorite_counts", default: 0
+    t.integer  "posi_counts",     default: 0
+    t.integer  "nega_counts",     default: 0
+    t.boolean  "deleted_flg",     default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "questions", ["user_id"], name: "index_questions_on_user_id", using: :btree
