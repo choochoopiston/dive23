@@ -8,7 +8,7 @@ class CreateQuestions < ActiveRecord::Migration
       t.integer :favorite_counts, default: 0
       t.integer :posi_counts, default: 0
       t.integer :nega_counts, default: 0
-      t.boolean :deleted_flg, default: false
+      t.boolean :deleted_flg, null: false, default: false
 
       t.timestamps null: false
     end
