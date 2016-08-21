@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20160821042943) do
   add_index "questions", ["user_id"], name: "index_questions_on_user_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.string   "name",                        null: false
+    t.string   "name",        default: "",    null: false
     t.boolean  "deleted_flg", default: false, null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
