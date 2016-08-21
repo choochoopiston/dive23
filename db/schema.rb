@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20160819081036) do
     t.integer  "favorite_counts", default: 0
     t.integer  "posi_counts",     default: 0
     t.integer  "nega_counts",     default: 0
-    t.boolean  "deleted_flg",     default: false
+    t.boolean  "deleted_flg",     default: false, null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
   end
