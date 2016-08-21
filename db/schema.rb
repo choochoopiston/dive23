@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20160821060841) do
   add_index "questions", ["user_id"], name: "index_questions_on_user_id", using: :btree
 
   create_table "tag_relations", force: :cascade do |t|
-    t.integer  "question_id", default: 0
-    t.integer  "tag_id",      default: 0
+    t.integer  "question_id"
+    t.integer  "tag_id"
     t.boolean  "deleted_flg", default: false, null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
