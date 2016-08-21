@@ -34,6 +34,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string  :name
       t.string  :avatar
       t.text    :profile
+      t.integer :score,       null: false, default: 0
+      t.boolean :deleted_flg, null: false, default: false
 
       t.timestamps null: false
     end
