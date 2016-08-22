@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160821074134) do
   end
 
   add_index "favorites", ["question_id"], name: "index_favorites_on_question_id", using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.integer  "user_id"
@@ -102,5 +103,6 @@ ActiveRecord::Schema.define(version: 20160821074134) do
   end
 
   add_foreign_key "favorites", "questions"
+  add_foreign_key "favorites", "users"
   add_foreign_key "questions", "users"
 end
