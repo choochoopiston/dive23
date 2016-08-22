@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20160821074134) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_index "favorites", ["question_id"], name: "index_favorites_on_question_id", using: :btree
+
   create_table "questions", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title",                           null: false
@@ -99,5 +101,6 @@ ActiveRecord::Schema.define(version: 20160821074134) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_foreign_key "favorites", "questions"
   add_foreign_key "questions", "users"
 end
