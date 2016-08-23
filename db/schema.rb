@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20160821074134) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_index "votes", ["answer_id"], name: "index_votes_on_answer_id", using: :btree
   add_index "votes", ["question_id"], name: "index_votes_on_question_id", using: :btree
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
@@ -113,6 +114,7 @@ ActiveRecord::Schema.define(version: 20160821074134) do
   add_foreign_key "favorites", "questions"
   add_foreign_key "favorites", "users"
   add_foreign_key "questions", "users"
+  add_foreign_key "votes", "answers"
   add_foreign_key "votes", "questions"
   add_foreign_key "votes", "users"
 end
