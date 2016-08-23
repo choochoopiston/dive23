@@ -35,6 +35,7 @@ RSpec.describe Question, type: :model do
   end
   
   describe 'Association' do
+    it { should belong_to(:user) }
     it { should have_many(:favorites) }
     it { should have_many(:answers) }
     it { should have_many(:votes) }

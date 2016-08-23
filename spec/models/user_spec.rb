@@ -5,5 +5,6 @@ RSpec.describe User, type: :model do
     it { should have_many(:answers) }
     it { should have_many(:favorites) }
     it { should have_many(:votes) }
+    it { should have_many(:questions) }
   end
 end
