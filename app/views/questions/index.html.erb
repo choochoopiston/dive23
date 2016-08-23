@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Questions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Photo</th>
+      <th>Favorite counts</th>
+      <th>Posi counts</th>
+      <th>Nega counts</th>
+      <th>Deleted flg</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <td><%= question.user_id %></td>
+        <td><%= question.title %></td>
+        <td><%= question.content %></td>
+        <td><%= question.photo %></td>
+        <td><%= question.favorite_counts %></td>
+        <td><%= question.posi_counts %></td>
+        <td><%= question.nega_counts %></td>
+        <td><%= question.deleted_flg %></td>
+        <td><%= link_to 'Show', question %></td>
+        <td><%= link_to 'Edit', edit_question_path(question) %></td>
+        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Question', new_question_path %>
