@@ -2,7 +2,7 @@ class CreateAnswers < ActiveRecord::Migration
   def change
     create_table :answers do |t|
       t.references :question, index: true, foreign_key: true
-      t.integer :user_id
+      t.references :user, index: true, foreign_key: true
       t.text :content, null: false
       t.string :photo
       t.integer :posi_counts, default: 0
