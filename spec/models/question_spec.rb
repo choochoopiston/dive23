@@ -38,6 +38,7 @@ RSpec.describe Question, type: :model do
     it { should have_many(:favorites) }
     it { should have_many(:answers) }
     it { should have_many(:votes) }
+    it { should have_many(:tag_relations) }
   end
 
 end

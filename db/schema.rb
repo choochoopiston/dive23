@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(version: 20160821074134) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_index "tag_relations", ["question_id"], name: "index_tag_relations_on_question_id", using: :btree
+
   create_table "tags", force: :cascade do |t|
     t.string   "name",        default: "",    null: false
     t.boolean  "deleted_flg", default: false, null: false
@@ -114,6 +116,7 @@ ActiveRecord::Schema.define(version: 20160821074134) do
   add_foreign_key "favorites", "questions"
   add_foreign_key "favorites", "users"
   add_foreign_key "questions", "users"
+  add_foreign_key "tag_relations", "questions"
   add_foreign_key "votes", "answers"
   add_foreign_key "votes", "questions"
   add_foreign_key "votes", "users"
