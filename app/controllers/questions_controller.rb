@@ -38,7 +38,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question.destroy
+    @question.deleted_flg = true
+    @question.save
     respond_to do |format|
       format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
     end
