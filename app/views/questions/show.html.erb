@@ -1,0 +1,44 @@
+
+
+<p>
+  <strong>User:</strong>
+  <%= @question.user_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @question.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @question.content %>
+</p>
+
+<p>
+  <strong>Photo:</strong>
+  <%= @question.photo %>
+</p>
+
+<p>
+  <strong>Favorite counts:</strong>
+  <%= @question.favorite_counts %>
+</p>
+
+<p>
+  <strong>Posi counts:</strong>
+  <%= @question.posi_counts %>
+</p>
+
+<p>
+  <strong>Nega counts:</strong>
+  <%= @question.nega_counts %>
+</p>
+
+<p>
+  <strong>Deleted flg:</strong>
+  <%= @question.deleted_flg %>
+</p>
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Back', questions_path %>
