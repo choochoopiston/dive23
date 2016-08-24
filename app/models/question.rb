@@ -6,4 +6,6 @@ class Question < ActiveRecord::Base
   has_many   :tag_relations
   
   validates_presence_of :title, :content, :user_id
+  
+  default_scope -> { where(deleted_flg: false) }
 end
