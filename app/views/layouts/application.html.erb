@@ -7,14 +7,20 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <% if user_signed_in? %>
-      <%= link_to 'マイページ', edit_user_registration_path %>
-      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to 'ログイン', new_user_session_path %>
-      <%= link_to 'サインアップ', new_user_registration_path %>
-    <% end %>
-    <%= notice %><%= alert %>
-    <%= yield %>
+    
+    <%= render 'layouts/header' %>
+    
+    <div id="contents_area" class="container">
+      <div class="col-sm-8">
+        <%= notice %><%= alert %>
+        <%= yield %>
+      </div>
+      <div class="col-sm-4">
+        <%= render 'layouts/right_navi' %>
+      </div>
+    </div>
+    
+    <%= render 'layouts/footer' %>
+    
   </body>
 </html>
