@@ -28,7 +28,7 @@ RSpec.describe Question, type: :model do
     end
     
     #ユーザIDが記入されていなければNG
-    it "is invalid without content" do
+    it "is invalid without user_id" do
       question = build(:question)
       expect(question).not_to be_valid
     end
