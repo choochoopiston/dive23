@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :check_mine, only: [:edit, :update, :destroy]
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
@@ -14,14 +15,10 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    unless check_mine?
-      redirect_to :questions, notice: '編集権限がありません' #TODO m.kitamura メッセージ定義
-    end
   end
 
   def create
     @question = Question.new(question_params)
-
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
@@ -32,28 +29,20 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if check_mine?
-      respond_to do |format|
-        if @question.update(question_params)
-          format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        else
-          format.html { render :edit }
-        end
+    respond_to do |format|
+      if @question.update(question_params)
+        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+      else
+        format.html { render :edit }
       end
-    else
-      redirect_to :questions, notice: '編集権限がありません' #TODO m.kitamura メッセージ定義
     end
   end
 
   def destroy
-    if check_mine?
-      @question.deleted_flg = true
-      @question.save
-      respond_to do |format|
-        format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
-      end
-    else
-      redirect_to :questions, notice: '編集権限がありません' #TODO m.kitamura メッセージ定義
+    @question.deleted_flg = true
+    @question.save
+    respond_to do |format|
+      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
     end
   end
 
@@ -66,11 +55,9 @@ class QuestionsController < ApplicationController
       params.require(:question).permit(:user_id, :title, :content, :photo, :favorite_counts, :posi_counts, :nega_counts, :deleted_flg)
     end
 
-    def check_mine?
-      if @question.user.id == current_user.id
-        true
-      else
-        false
+    def check_mine
+      unless @question.user.id == current_user.id
+        redirect_to :questions, notice: '編集権限がありません' #TODO m.kitamura メッセージ定義
       end
     end
 end
