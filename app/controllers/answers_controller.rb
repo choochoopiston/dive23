@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  before_action :check_mine, only: [:destroy]
   
   def create
     @answer = current_user.answers.build(answer_params)
@@ -30,4 +31,10 @@ class AnswersController < ApplicationController
       params.require(:answer).permit(:question_id, :user_id, :content, :photo, :posi_counts, :nega_counts, :deleted_flg)
     end
 
+    def check_mine
+      @answer = Answer.find params[:id]
+      unless @answer.user.id == current_user.id
+        redirect_to :questions, notice: '編集権限がありません' #TODO m.kitamura メッセージ定義
+      end
+    end
 end
