@@ -18,10 +18,10 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(question_params)
+    @question = current_user.questions.build(question_params)
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to @question, notice: '質問を投稿しました。' }
       else
         format.html { render :new }
       end
@@ -31,7 +31,7 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        format.html { redirect_to @question, notice: '質問を更新しました。' }
       else
         format.html { render :edit }
       end
@@ -42,7 +42,7 @@ class QuestionsController < ApplicationController
     @question.deleted_flg = true
     @question.save
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to questions_url, notice: '質問を削除しました。' }
     end
   end
 
