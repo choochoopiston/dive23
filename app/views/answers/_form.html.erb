@@ -1,0 +1,32 @@
+<%= form_for([question, answer], html: {class: 'form-horizontal'}) do |f| %>
+  <% if answer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(answer.errors.count, "error") %>件のエラーがあります。</h2>
+
+      <ul>
+      <% answer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+      <div class="col-sm-11">
+          <%= f.text_area :content, rows: 10, class: 'form-control' %>
+      </div>
+      <div class="col-sm-1"> </div>
+  </div> 
+  <div class="row">
+      <div class="col-sm-1">
+    　    <%= f.submit "回答を投稿する", class: "btn btn-info" %>
+      </div>
+      <div class="col-sm-11"> </div>
+  </div>
+
+  
+  <%= f.hidden_field :question_id %>
+  <%= f.hidden_field :user_id %>
+
+
+<% end %>
