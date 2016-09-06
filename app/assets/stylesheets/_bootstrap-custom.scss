@@ -4,6 +4,46 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
+.question_title {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 40px 0 10px 0;
+    margin-bottom: 10px;
+    font-size: 150%;
+}
+
+.font_grey {
+    color: #999999;
+}
+
+.contribution_up {
+    margin-top: -10px;
+}
+
+.question_contribution {
+    display: block;
+    font-size: 110%;
+    width: 25px;
+    text-align: center;
+}
+
+.question_content {
+    display: block;
+    min-height: 200px;
+}
+
+.favorite_star {
+    padding-left: 3px;
+    margin-bottom: 10px;
+}
+
+.question_useronly {
+    margin-left: -15px;
+}
+
+.question_user {
+    background-color: rgba(180,200,220, 0.5);
+}
+
 // Core variables and mixins
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
