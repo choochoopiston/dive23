@@ -4,7 +4,14 @@ class QuestionsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @questions = Question.all
+    case params[:tab] 
+    when "active"
+      @questions = Question.all.order(updated_at: :desc) #TODO n.uchiyama 紐づくanswersの更新日時とソート順を考慮する必要あり
+    when "favorite"
+      @questions = Question.all.order(favorite_counts: :desc, updated_at: :desc) #TODO n.uchiyama 紐づくanswersの更新日時とソート順を考慮する必要あり
+    else
+      @questions = Question.all.order(updated_at: :desc)
+    end
   end
 
   def show
