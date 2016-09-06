@@ -1,44 +1,42 @@
+<div class="col-xs-12 question_title">
+  <div class="row"><%= @question.title %></div>
+</div>
 
+<div class="col-sm-8">
+  <div class="row">
+    <div class="col-xs-1 col-sm-1">
+        <i class="fa fa-caret-up fa-3x contribution_up"></i><br />
+        <span class="question_contribution"><%= @contribution_counts %></span>
+        <i class="fa fa-caret-down fa-3x"></i><br />
+        <i class="fa fa-star fa-lg favorite_star"></i>
+    </div>
+    <div class="col-xs-11 visible-xs"> </div>
+    <div class="col-xs-12 col-sm-11">
+      <%= simple_format(@question.content, class: "question_content") %>
+      <div class="row">
+        <div class="col-sm-12">
+          <!--属するタグを表示 #TODO hara タグ機能実装後 デザイン修正必要あり-->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 question_useronly">
+          <% if @question.user == current_user %>
+          　<%= link_to '編集', edit_question_path(@question), class: "font_grey" %>&emsp;<%= link_to "削除", @question, method: :delete, class: "font_grey",  data: { confirm: '本当に削除していいですか？'} %>
+          <% end %>
+        </div>
+        <div class="col-sm-offset-4 col-sm-5 question_user">
+          <!--<%= image_tag(@question.user.avatar) %> #TODO hara ユーザ画像登録実装後 デザイン修正必要あり-->
+          <!--<%= link_to @question.user.name, "#" %> #TODO hara ユーザ名必須にするかしないかでデザイン修正必要あり-->
+          <%= @question.user.score %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>User:</strong>
-  <%= @question.user_id %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @question.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @question.content %>
-</p>
-
-<p>
-  <strong>Photo:</strong>
-  <%= @question.photo %>
-</p>
-
-<p>
-  <strong>Favorite counts:</strong>
-  <%= @question.favorite_counts %>
-</p>
-
-<p>
-  <strong>Posi counts:</strong>
-  <%= @question.posi_counts %>
-</p>
-
-<p>
-  <strong>Nega counts:</strong>
-  <%= @question.nega_counts %>
-</p>
-
-<p>
-  <strong>Deleted flg:</strong>
-  <%= @question.deleted_flg %>
-</p>
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+<div class="col-sm-4">
+  <p><span class="font_grey">質問を投稿</span> <%= @question.created_at %></p>
+  <p><span class="font_grey">閲覧数</span> XXX回(準備中)</p>
+  <br />
+  <p>関連する質問(準備中)</p>
+</div>
