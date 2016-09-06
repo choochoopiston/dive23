@@ -1,4 +1,8 @@
-// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+/* 
+ * "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+ *= require_tree .
+ *= require_self
+ */
 @import "bootstrap-sprockets";
 @import 'bootstrap-custom';
 @import "font-awesome-sprockets";
