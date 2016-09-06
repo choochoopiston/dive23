@@ -17,6 +17,7 @@ class QuestionsController < ApplicationController
   def show
     @contribution_counts = @question.posi_counts - @question.nega_counts
     @answer = @question.answers.build
+    @answers = @question.answers
   end
 
   def new

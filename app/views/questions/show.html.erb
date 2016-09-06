@@ -32,6 +32,8 @@
       </div>
     </div>
   </div>
+  <br />
+  <%= render partial: 'answers/index', locals: { answers: @answers, question: @question } %>
   <hr>
   <h4>回答</h4><br />
   <%= render partial: 'answers/form', locals: { answer: @answer, question: @question } %>
