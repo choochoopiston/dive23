@@ -1,0 +1,34 @@
+<% if answers.count > 0 %>
+<div class="row">
+  <h4><%= answers.count %>件の回答</h4>
+  <hr>
+</div>
+<% answers.each do |answer| %>
+  <% unless answer.id.nil? %>
+    <div class="row">
+      <div class="col-xs-1 col-sm-1">
+          <i class="fa fa-caret-up fa-3x contribution_up"></i><br />
+          <span class="answer_contribution"><%= answer.posi_counts - answer.nega_counts %></span>
+          <i class="fa fa-caret-down fa-3x"></i><br />
+      </div>
+      <div class="col-xs-11 visible-xs"> </div>
+      <div class="col-xs-12 col-sm-11">
+        <%= simple_format(answer.content, class: "answer_content") %>
+        <div class="row">
+          <div class="col-sm-3 answer_useronly">
+            <% if answer.user == current_user %>
+            　<%= link_to '編集', "#", class: "font_grey" %>&emsp;<%= link_to "削除", question_answer_path(question, answer), method: :delete, class: "font_grey",  data: { confirm: '本当に削除していいですか？'} %>
+            <% end %>
+          </div>
+          <div class="col-sm-offset-4 col-sm-5 answer_user">
+            <!--<%= image_tag(answer.user.avatar) %> #TODO hara ユーザ画像登録実装後 デザイン修正必要あり-->
+            <!--<%= link_to answer.user.name, "#" %> #TODO hara ユーザ名必須にするかしないかでデザイン修正必要あり-->
+            <%= answer.user.score %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+  <% end %>
+<% end %>
+<% end %>

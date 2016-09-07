@@ -2,7 +2,7 @@
   <div class="row"><%= @question.title %></div>
 </div>
 
-<div class="col-sm-8">
+<div class="col-sm-9">
   <div class="row">
     <div class="col-xs-1 col-sm-1">
         <i class="fa fa-caret-up fa-3x contribution_up"></i><br />
@@ -32,9 +32,14 @@
       </div>
     </div>
   </div>
+  <br />
+  <%= render partial: 'answers/index', locals: { answers: @answers, question: @question } %>
+  <hr>
+  <h4>回答</h4><br />
+  <%= render partial: 'answers/form', locals: { answer: @answer, question: @question } %>
 </div>
 
-<div class="col-sm-4">
+<div class="col-sm-3">
   <p><span class="font_grey">質問を投稿</span> <%= @question.created_at %></p>
   <p><span class="font_grey">閲覧数</span> XXX回(準備中)</p>
   <br />
