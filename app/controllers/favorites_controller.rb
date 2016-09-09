@@ -1,6 +1,6 @@
 class FavoritesController < ApplicationController
   def create
-    @favorite = current_user.favorites.build(favorite_params)
+    @favorite = current_user.favorites.build
     @favorite.question_id = params[:question_id]
     @question = @favorite.question
     
@@ -14,8 +14,8 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    @favorite = Favorite.where(question_id: params[:question_id]).where(user_id: current_user.id)
-    @question = @favorite.question
+    @favorite = Favorite.find(params[:id])
+    @question = Question.find(params[:question_id])
     @favorite.destroy
     
     respond_to do |format|
@@ -23,8 +23,8 @@ class FavoritesController < ApplicationController
     end
   end
   
-  private
-    def favorite_params
-      params.require(:favorite).permit(:user_id, :question_id)
-    end
+  # private
+  #   def favorite_params
+  #     params.require(:favorite).permit(:user_id, :question_id)
+  #   end
 end

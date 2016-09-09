@@ -1,0 +1,9 @@
+<% unless current_user.favorite?(question) %>
+    <%= link_to question_favorites_path(question), :method => :post do %>
+        <i class="fa fa-star fa-lg favorite_star"></i>
+    <% end %>
+<% else %>
+    <%= link_to question_favorite_path(question, current_user.favorites.find_by(question_id: question.id)), :method => :delete do %>
+        <i class="fa fa-star fa-lg favorite_star"></i>
+    <% end %>
+<% end %>
