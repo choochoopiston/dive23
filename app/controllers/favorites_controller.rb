@@ -23,8 +23,4 @@ class FavoritesController < ApplicationController
     end
   end
   
-  # private
-  #   def favorite_params
-  #     params.require(:favorite).permit(:user_id, :question_id)
-  #   end
 end
