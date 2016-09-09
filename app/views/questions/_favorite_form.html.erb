@@ -1,9 +1,13 @@
 <% unless current_user.favorite?(question) %>
     <%= link_to question_favorites_path(question), :method => :post do %>
-        <i class="fa fa-star fa-lg favorite_star"></i>
+        <i class="fa fa-star fa-lg favorite_star favorite_off"></i>
     <% end %>
+    <% if question.favorites.count > 1 %>
+        <span class="favorite_count"><%= question.favorites.count %></span>
+     <% end %>
 <% else %>
     <%= link_to question_favorite_path(question, current_user.favorites.find_by(question_id: question.id)), :method => :delete do %>
-        <i class="fa fa-star fa-lg favorite_star"></i>
+        <i class="fa fa-star fa-lg favorite_star favorite_on"></i>
     <% end %>
+    <span class="favorite_count"><%= question.favorites.count %></span>
 <% end %>
