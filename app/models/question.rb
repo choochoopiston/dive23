@@ -8,4 +8,5 @@ class Question < ActiveRecord::Base
   validates_presence_of :title, :content, :user_id
   
   default_scope -> { where(deleted_flg: false) }
+  
 end
