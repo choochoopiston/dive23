@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :favorites
   has_many :votes
   
+  validates_presence_of :name
+  
   def favorite?(question)
     favorites.find_by(question_id: question.id)
   end
