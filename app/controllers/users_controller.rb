@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
   def index
-    @users = User.all.order(score: :desc, updated_at: :asc)
+    @users = User.all.order(score: :desc, created_at: :asc)
   end
 end
