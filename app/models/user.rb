@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :favorites
   has_many :votes
   
+  default_scope -> { where(deleted_flg: false) }
+  
   def favorite?(question)
     favorites.find_by(question_id: question.id)
   end
