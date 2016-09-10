@@ -34,7 +34,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   
   # Create thumbnail version of uploaded file. ex) @user.avator.thumb.url
   version :thumb do
-    process :resize_to_fit => [60, 60]
+    process :resize_to_fill => [63, 63]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
