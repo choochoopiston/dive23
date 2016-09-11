@@ -37,20 +37,21 @@
     <hr>
     <h3>非公開情報</h3>
     <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, class: "form-control" %>
+      <%= f.label :"メールアドレス" %><br />
+      <%= f.email_field :email, class: "form-control" %>
     </div>
     <div class="field">
-      <strong class="text-danger">passwordを変更しない場合は「新password」と「新password(確認用)」をブランクにしてください。</strong><br>
-      <%= f.label :"新password" %>
+      <strong class="text-danger">パスワードを変更しない場合は「新しいパスワード」と「新しいパスワード(確認用)」をブランクにしてください。</strong><br>
+      <%= f.label :"新しいパスワード" %>
       <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "新しいパスワード" %>
     </div>
     <div class="field">
-      <%= f.label :"新password(確認用)" %>
+      <%= f.label :"新しいパスワード(確認用)" %>
       <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "新しいパスワード(確認用)" %>
     </div>
     <div class="field">
-      <strong class="text-danger">User情報を変更する場合は、下に現在のパスワードを入力してください。</strong><br>
+      <%= f.label :"現在のパスワード" %>
+      <strong class="text-danger">(User情報を変更する場合は、下に現在のパスワードを入力してください。)</strong><br>
       <%= f.password_field :current_password, autocomplete: "off", class: "form-control", placeholder: "現在のパスワード(current password)"  %>
     </div>
     <div class="field">
