@@ -9,6 +9,7 @@ class VotesController < ApplicationController
       
       if params[:vote] == "posi"
         @vote.is_positive = true 
+        @question.posi_counts += 1
         respond_to do |format|
           if @vote.save
             format.html { redirect_to question_path(@question), notice: '質問にグッド!をしました。' }
@@ -17,6 +18,7 @@ class VotesController < ApplicationController
           end
         end
       else
+        @question.nega_counts += 1
         respond_to do |format|
           if @vote.save
             format.html { redirect_to question_path(@question), notice: '質問にノットグッド!をしました。' }
@@ -32,7 +34,8 @@ class VotesController < ApplicationController
       @question = @answer.question
       
       if params[:vote] == "posi"
-        @vote.is_positive = true 
+        @vote.is_positive = true
+        @answer.posi_counts += 1
         respond_to do |format|
           if @vote.save
             format.html { redirect_to question_path(@question), notice: '回答にグッド!をしました。' }
@@ -42,6 +45,7 @@ class VotesController < ApplicationController
         end
       else
         respond_to do |format|
+          @answer.nega_counts += 1
           if @vote.save
             format.html { redirect_to question_path(@question), notice: '回答にノットグッド!をしました。' }
           else
@@ -60,23 +64,37 @@ class VotesController < ApplicationController
     @question = Question.find(params[:question_id])
     
     unless @vote.answer.present?
-      @vote.destroy
-      respond_to do |format|
-        if params[:vote] == "posi"
-          format.html { redirect_to question_path(@question), notice: '質問のグッド!を解除しました。' }
-        else
-          format.html { redirect_to question_path(@question), notice: '質問のノットグッド!を解除しました。' }
+    
+      if params[:vote] == "posi"
+        @question.posi_counts -= 1
+        @vote.destroy
+        respond_to do |format|
+          format.html { redirect_to question_path(@question), notice: '質問のグッド!を解除しました' }
         end
-      end
+      else
+        @question.nega_counts -= 1
+        @vote.destroy
+        respond_to do |format|
+          format.html { redirect_to question_path(@question), notice: '質問のノットグッド!を解除しました' }
+        end
+      end 
+    
     else
-      @vote.destroy
-      respond_to do |format|
-        if params[:vote] == "posi"
-          format.html { redirect_to question_path(@question), notice: '回答のグッド!を解除しました。' }
-        else
-          format.html { redirect_to question_path(@question), notice: '回答のノットグッド!を解除しました。' }
+      @answer = Vote.find(params[:answer_id])
+      if params[:vote] == "posi"
+        @answer.posi_counts -= 1
+        @vote.destroy
+        respond_to do |format|
+          format.html { redirect_to question_path(@question), notice: '回答のグッド!を解除しました' }
         end
-      end
+      else
+        @answer.nega_counts -= 1
+        @vote.destroy
+        respond_to do |format|
+          format.html { redirect_to question_path(@question), notice: '回答のノットグッド!を解除しました' }
+        end
+      end 
+      
     end
     
   end
