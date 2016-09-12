@@ -18,6 +18,7 @@ class VotesController < ApplicationController
           end
         end
       else
+        @vote.is_positive = false
         @question.nega_counts += 1
         respond_to do |format|
           if @vote.save
@@ -45,6 +46,7 @@ class VotesController < ApplicationController
         end
       else
         respond_to do |format|
+          @vote.is_positive = false
           @answer.nega_counts += 1
           if @vote.save
             format.html { redirect_to question_path(@question), notice: '回答にノットグッド!をしました。' }
@@ -72,6 +74,7 @@ class VotesController < ApplicationController
           format.html { redirect_to question_path(@question), notice: '質問のグッド!を解除しました' }
         end
       else
+        @vote.is_positive = false
         @question.nega_counts -= 1
         @vote.destroy
         respond_to do |format|
@@ -88,6 +91,7 @@ class VotesController < ApplicationController
           format.html { redirect_to question_path(@question), notice: '回答のグッド!を解除しました' }
         end
       else
+        @vote.is_positive = false
         @answer.nega_counts -= 1
         @vote.destroy
         respond_to do |format|
