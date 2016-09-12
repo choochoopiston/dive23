@@ -88,7 +88,7 @@ class VotesController < ApplicationController
         end
         
         respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '回答のプラス投票を解除しました' }
+          format.html { redirect_to question_path(@question), notice: '回答のプラス投票を解除しました。' }
         end
       else
         @vote.is_positive = false
@@ -100,7 +100,7 @@ class VotesController < ApplicationController
         end
         
         respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '回答のマイナス投票を解除しました' }
+          format.html { redirect_to question_path(@question), notice: '回答のマイナス投票を解除しました。' }
         end
       end 
     
@@ -114,7 +114,7 @@ class VotesController < ApplicationController
         end
         
         respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '質問のプラス投票を解除しました' }
+          format.html { redirect_to question_path(@question), notice: '質問のプラス投票を解除しました。' }
         end
         
       else
@@ -127,7 +127,7 @@ class VotesController < ApplicationController
         end
         
         respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '質問のマイナス投票を解除しました' }
+          format.html { redirect_to question_path(@question), notice: '質問のマイナス投票を解除しました。' }
         end
       end 
       

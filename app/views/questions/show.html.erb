@@ -7,7 +7,7 @@
     <div class="col-xs-1 col-sm-1">
         <%= render 'vote_plus_form', question: @question %>
         <span class="question_contribution"><%= @contribution_counts %></span>
-        <i class="fa fa-caret-down fa-3x"></i><br />
+        <%= render 'vote_minus_form', question: @question %>
         <%= render 'favorite_form', question: @question %>
     </div>
     <div class="col-xs-11 visible-xs"> </div>

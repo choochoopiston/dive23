@@ -20,7 +20,11 @@ class User < ActiveRecord::Base
   end
   
   def vote_plus?(question)
-    votes.find_by(question_id: question.id)
+    votes.where(is_positive: true).find_by(question_id: question.id)
+  end
+
+  def vote_minus?(question)
+    votes.where(is_positive: false).find_by(question_id: question.id)
   end
   
 end
