@@ -21,7 +21,7 @@ class VotesController < ApplicationController
           format.html { redirect_to question_path(@question), notice: '回答にプラス投票をしました。' }
         end
         
-      else
+      elsif params[:vote] == "nega"
         @vote.is_positive = false
         @answer.nega_counts += 1
         
@@ -52,7 +52,7 @@ class VotesController < ApplicationController
           format.html { redirect_to question_path(@question), notice: '質問にプラス投票をしました。' }
         end
         
-      else
+      elsif params[:vote] == "nega"
         @vote.is_positive = false
         @question.nega_counts += 1
         
@@ -90,7 +90,7 @@ class VotesController < ApplicationController
         respond_to do |format|
           format.html { redirect_to question_path(@question), notice: '回答のプラス投票を解除しました。' }
         end
-      else
+      elsif params[:vote] == "nega"
         @vote.is_positive = false
         @answer.nega_counts -= 1
         
@@ -117,7 +117,7 @@ class VotesController < ApplicationController
           format.html { redirect_to question_path(@question), notice: '質問のプラス投票を解除しました。' }
         end
         
-      else
+      elsif params[:vote] == "nega"
         @vote.is_positive = false
         @question.nega_counts -= 1
         
