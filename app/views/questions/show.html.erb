@@ -5,7 +5,7 @@
 <div class="col-sm-9">
   <div class="row">
     <div class="col-xs-1 col-sm-1">
-        <i class="fa fa-caret-up fa-3x contribution_up"></i><br />
+        <%= render 'vote_plus_form', question: @question %>
         <span class="question_contribution"><%= @contribution_counts %></span>
         <i class="fa fa-caret-down fa-3x"></i><br />
         <%= render 'favorite_form', question: @question %>
