@@ -1,13 +1,13 @@
 <% if signed_in? && current_user.vote_plus_answer?(answer) %>
     <%= link_to question_answer_vote_path(question, answer, current_user.votes.where(is_positive: true).find_by(answer_id: answer.id), vote: "posi"), :method => :delete do %>
-        <i class="fa fa-caret-up fa-3x contribution_up vote_after"></i>
+        <i class="fa fa-caret-up fa-3x contribution_up text-info"></i>
     <% end %>
 <% elsif signed_in? && current_user.vote_minus_answer?(answer)%>
     <%= link_to question_answer_vote_path(question, answer, current_user.votes.where(is_positive: false).find_by(answer_id: answer.id), vote: "posi"), :method => :PATCH do %>
-        <i class="fa fa-caret-up fa-3x contribution_up vote_before"></i>
+        <i class="fa fa-caret-up fa-3x contribution_up text-muted"></i>
     <% end %>
 <% else %>
     <%= link_to question_answer_votes_path(question, answer, vote: "posi"), :method => :post do %>
-        <i class="fa fa-caret-up fa-3x contribution_up vote_before"></i>
+        <i class="fa fa-caret-up fa-3x contribution_up text-muted"></i>
     <% end %>
 <% end %>
