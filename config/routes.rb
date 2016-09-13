@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   root 'questions#index'
   resources :questions do
     resources :answers, only: [:create, :destroy] do
-      resources :votes, only: [:create, :destroy]
+      resources :votes, only: [:create, :update, :destroy]
     end
     resources :favorites, only: [:create, :destroy]
-    resources :votes, only: [:create, :destroy]
+    resources :votes, only: [:create, :update, :destroy]
   end
   devise_for :users
   resources :users, only: [:index] 

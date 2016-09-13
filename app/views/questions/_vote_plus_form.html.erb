@@ -2,6 +2,10 @@
     <%= link_to question_vote_path(question, current_user.votes.where(is_positive: true).find_by(question_id: question.id), vote: "posi"), :method => :delete do %>
         <i class="fa fa-caret-up fa-3x contribution_up vote_after"></i>
     <% end %>
+<% elsif signed_in? && current_user.vote_minus?(question) %>
+    <%= link_to question_vote_path(question, current_user.votes.where(is_positive: false).find_by(question_id: question.id), vote: "posi"), :method => :PATCH do %>
+        <i class="fa fa-caret-up fa-3x contribution_up vote_before"></i>
+    <% end %>
 <% else %>
     <%= link_to question_votes_path(question, vote: "posi"), :method => :post do %>
         <i class="fa fa-caret-up fa-3x contribution_up vote_before"></i>

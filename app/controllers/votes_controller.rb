@@ -71,6 +71,76 @@ class VotesController < ApplicationController
     end
     
   end
+  
+  
+  def update
+    @vote = Vote.find(params[:id])
+    @question = Question.find(params[:question_id])
+    
+    if @vote.answer.present?
+      @answer = Answer.find(params[:answer_id])
+      if params[:vote] == "posi"
+        @vote.is_positive = true
+        @answer.nega_counts -= 1
+        @answer.posi_counts += 1
+        
+        Vote.transaction do
+          @vote.save!
+          @answer.save!
+        end
+        
+        respond_to do |format|
+          format.html { redirect_to question_path(@question), notice: '回答のマイナス投票を解除し、プラス投票しました。' }
+        end
+      elsif params[:vote] == "nega"
+        @vote.is_positive = false
+        @answer.posi_counts -= 1
+        @answer.nega_counts += 1
+        
+        Vote.transaction do
+          @vote.save!
+          @answer.save!
+        end
+        
+        respond_to do |format|
+          format.html { redirect_to question_path(@question), notice: '回答のプラス投票を解除し、マイナス投票しました。' }
+        end
+      end 
+    
+    else
+      if params[:vote] == "posi"
+        @vote.is_positive = true
+        @question.nega_counts -= 1
+        @question.posi_counts += 1
+        
+        Vote.transaction do
+          @vote.save!
+          @question.save!
+        end
+        
+        respond_to do |format|
+          format.html { redirect_to question_path(@question), notice: '質問のマイナス投票を解除し、プラス投票しました。' }
+        end
+        
+      elsif params[:vote] == "nega"
+        @vote.is_positive = false
+        @question.posi_counts -= 1
+        @question.nega_counts += 1
+        
+        Vote.transaction do
+          @vote.save!
+          @question.save!
+        end
+        
+        respond_to do |format|
+          format.html { redirect_to question_path(@question), notice: '質問のプラス投票を解除し、マイナス投票しました。' }
+        end
+      end 
+      
+    end
+
+  
+  end
 
 
   def destroy
