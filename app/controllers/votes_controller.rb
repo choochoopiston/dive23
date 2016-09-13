@@ -84,7 +84,7 @@ class VotesController < ApplicationController
         
         Vote.transaction do
           @vote.destroy!
-          @question.save!
+          @answer.save!
         end
         
         respond_to do |format|
@@ -96,7 +96,7 @@ class VotesController < ApplicationController
         
         Vote.transaction do
           @vote.destroy!
-          @question.save!
+          @answer.save!
         end
         
         respond_to do |format|
@@ -118,7 +118,6 @@ class VotesController < ApplicationController
         end
         
       elsif params[:vote] == "nega"
-        @vote.is_positive = false
         @question.nega_counts -= 1
         
         Vote.transaction do
