@@ -78,7 +78,7 @@ class VotesController < ApplicationController
     @question = Question.find(params[:question_id])
     
     if @vote.answer.present?
-      @answer = Vote.find(params[:answer_id])
+      @answer = Answer.find(params[:answer_id])
       if params[:vote] == "posi"
         @answer.posi_counts -= 1
         
