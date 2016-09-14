@@ -3,64 +3,68 @@ class VotesController < ApplicationController
   before_action :set_vote, only: [:update, :destroy]
   
   def create
-      @vote = current_user.votes.build
-      Vote.transaction do
-        if params[:answer_id].present?
-          @answer = Answer.find(params[:answer_id])
-          @vote.answer_id = params[:answer_id]
-          create_save(@vote, @answer, params[:vote])
-        else
-          @vote.question_id = params[:question_id]
-          create_save(@vote, @question, params[:vote])
+    @vote = current_user.votes.build
+    respond_to do |format|
+      begin
+        Vote.transaction do
+          if params[:answer_id].present?
+            @answer = Answer.find(params[:answer_id])
+            @vote.answer_id = params[:answer_id]
+            create_save(@vote, @answer, params[:vote])
+          else
+            @vote.question_id = params[:question_id]
+            create_save(@vote, @question, params[:vote])
+          end
         end
-      end
-      
-      respond_to do |format|
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "に" + "#{plus_or_minus(params[:vote])}" + "投票しました。"}
-      end
-    
-    rescue
-      respond_to do |format|
+      rescue
         format.html { redirect_to question_path(@question), notice: "投票が正常にできませんでした。" }
+        Rails.logger.error e.message
+        Rails.logger.error e.backtrace.join("\n")
       end
+    end
   end
   
   
   def update
-      Vote.transaction do
-        if params[:answer_id].present?
-          @answer = Answer.find(params[:answer_id])
-          update_save(@vote, @answer, params[:vote])
-        else
-          update_save(@vote, @question, params[:vote])
+    respond_to do |format|
+      begin
+        ActiveRecord::Base.transaction do
+          if params[:answer_id].present?
+            @answer = Answer.find(params[:answer_id])
+            update_save(@vote, @answer, params[:vote])
+          else
+            update_save(@vote, @question, params[:vote])
+          end
         end
-      end
-      respond_to do |format|
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "の" + "#{plus_or_minus_reverse(params[:vote])}" + "投票を解除し、" + "#{plus_or_minus(params[:vote])}" + "投票しました。"}
-      end
-    rescue
-      respond_to do |format|
+      rescue => e
         format.html { redirect_to question_path(@question), notice: '投票の変更が正常にできませんでした。' }
+        Rails.logger.error e.message
+        Rails.logger.error e.backtrace.join("\n")
       end
+    end
   end
 
 
   def destroy
-      Vote.transaction do
-        if params[:answer_id].present?
-          @answer = Answer.find(params[:answer_id])
-          destroy_save(@vote, @answer, params[:vote])
-        else
-          destroy_save(@vote, @question, params[:vote])
+    respond_to do |format|
+      begin
+        ActiveRecord::Base.transaction do
+          if params[:answer_id].present?
+            @answer = Answer.find(params[:answer_id])
+            destroy_save(@vote, @answer, params[:vote])
+          else
+            destroy_save(@vote, @question, params[:vote])
+          end
         end
-      end
-      respond_to do |format|
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "の" + "#{plus_or_minus(params[:vote])}" + "投票を解除しました。"}
-      end
-    rescue
-      respond_to do |format|
+      rescue => e
         format.html { redirect_to question_path(@question), notice: '投票の解除が正常にできませんでした。' }
+        Rails.logger.error e.message
+        Rails.logger.error e.backtrace.join("\n")
       end
+    end
   end
   
   private
