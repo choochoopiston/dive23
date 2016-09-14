@@ -19,10 +19,10 @@ class VotesController < ApplicationController
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "に" + "#{plus_or_minus(params[:vote])}" + "投票しました。"}
       end
     
-    # rescue
-    #   respond_to do |format|
-    #     format.html { redirect_to question_path(@question), notice: "投票が正常にできませんでした。" }
-    #   end
+    rescue
+      respond_to do |format|
+        format.html { redirect_to question_path(@question), notice: "投票が正常にできませんでした。" }
+      end
   end
   
   
@@ -38,10 +38,10 @@ class VotesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "の" + "#{plus_or_minus_reverse(params[:vote])}" + "投票を解除し、" + "#{plus_or_minus(params[:vote])}" + "投票しました。"}
       end
-    # rescue
-    #   respond_to do |format|
-    #     format.html { redirect_to question_path(@question), notice: '投票の変更が正常にできませんでした。' }
-    #   end
+    rescue
+      respond_to do |format|
+        format.html { redirect_to question_path(@question), notice: '投票の変更が正常にできませんでした。' }
+      end
   end
 
 
@@ -57,10 +57,10 @@ class VotesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "の" + "#{plus_or_minus(params[:vote])}" + "投票を解除しました。"}
       end
-    # rescue
-    #   respond_to do |format|
-    #     format.html { redirect_to question_path(@question), notice: '投票の解除が正常にできませんでした。' }
-    #   end
+    rescue
+      respond_to do |format|
+        format.html { redirect_to question_path(@question), notice: '投票の解除が正常にできませんでした。' }
+      end
   end
   
   private
@@ -83,8 +83,6 @@ class VotesController < ApplicationController
         question_or_answer.nega_counts += 1
         question_or_answer.user.score -= 1
       end
-      # voted_user = question_or_answer.user
-      # voted_user.save!
       vote.save!
       question_or_answer.save!
     end
@@ -101,8 +99,6 @@ class VotesController < ApplicationController
         question_or_answer.nega_counts += 1
         question_or_answer.user.score -= 2
       end
-      # voted_user = question_or_answer.user
-      # voted_user.save!
       vote.save!
       question_or_answer.save!
     end
@@ -116,8 +112,6 @@ class VotesController < ApplicationController
         question_or_answer.nega_counts -= 1
         question_or_answer.user.score += 1
       end
-      # voted_user = question_or_answer.user
-      # voted_user.save!
       vote.destroy!
       question_or_answer.save!
     end
@@ -133,6 +127,5 @@ class VotesController < ApplicationController
     def plus_or_minus_reverse(vote)
       vote == "posi" ? "マイナス" : "プラス"
     end 
-
 
 end
