@@ -17,7 +17,7 @@ class VotesController < ApplicationController
           end
         end
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "に" + "#{plus_or_minus(params[:vote])}" + "投票しました。"}
-      rescue
+      rescue => e
         format.html { redirect_to question_path(@question), notice: "投票が正常にできませんでした。" }
         Rails.logger.error e.message
         Rails.logger.error e.backtrace.join("\n")
