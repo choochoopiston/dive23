@@ -1,207 +1,138 @@
 class VotesController < ApplicationController
+  before_action :set_question, only: [:create, :update, :destroy]
+  before_action :set_vote, only: [:update, :destroy]
   
   def create
-    @vote = current_user.votes.build
-    
-    if params[:answer_id].present?
-      @vote.answer_id = params[:answer_id]
-      @answer = @vote.answer
-      @question = @answer.question
-      
-      if params[:vote] == "posi"
-        @vote.is_positive = true
-        @answer.posi_counts += 1
-        
-        Vote.transaction do
-          @vote.save!
-          @answer.save!
-        end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '回答にプラス投票をしました。' }
-        end
-        
-      elsif params[:vote] == "nega"
-        @vote.is_positive = false
-        @answer.nega_counts += 1
-        
-        Vote.transaction do
-          @vote.save!
-          @answer.save!
-        end
-          
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '回答にマイナス投票をしました。' }
+      @vote = current_user.votes.build
+      Vote.transaction do
+        if params[:answer_id].present?
+          @answer = Answer.find(params[:answer_id])
+          @vote.answer_id = params[:answer_id]
+          create_save(@vote, @answer, params[:vote])
+        else
+          @vote.question_id = params[:question_id]
+          create_save(@vote, @question, params[:vote])
         end
       end
-
-    else
-      @vote.question_id = params[:question_id]
-      @question = @vote.question
       
-      if params[:vote] == "posi"
-        @vote.is_positive = true 
-        @question.posi_counts += 1
-        
-        Vote.transaction do
-          @vote.save!
-          @question.save!
-        end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '質問にプラス投票をしました。' }
-        end
-        
-      elsif params[:vote] == "nega"
-        @vote.is_positive = false
-        @question.nega_counts += 1
-        
-        Vote.transaction do
-          @vote.save!
-          @question.save!
-        end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '質問にマイナス投票をしました。' }
-        end
-
+      respond_to do |format|
+        format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "に" + "#{plus_or_minus(params[:vote])}" + "投票しました。"}
       end
-
-      
-    end
     
+    # rescue
+    #   respond_to do |format|
+    #     format.html { redirect_to question_path(@question), notice: "投票が正常にできませんでした。" }
+    #   end
   end
   
   
   def update
-    @vote = Vote.find(params[:id])
-    @question = Question.find(params[:question_id])
-    
-    if @vote.answer.present?
-      @answer = Answer.find(params[:answer_id])
-      if params[:vote] == "posi"
-        @vote.is_positive = true
-        @answer.nega_counts -= 1
-        @answer.posi_counts += 1
-        
-        Vote.transaction do
-          @vote.save!
-          @answer.save!
+      Vote.transaction do
+        if params[:answer_id].present?
+          @answer = Answer.find(params[:answer_id])
+          update_save(@vote, @answer, params[:vote])
+        else
+          update_save(@vote, @question, params[:vote])
         end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '回答のマイナス投票を解除し、プラス投票しました。' }
-        end
-      elsif params[:vote] == "nega"
-        @vote.is_positive = false
-        @answer.posi_counts -= 1
-        @answer.nega_counts += 1
-        
-        Vote.transaction do
-          @vote.save!
-          @answer.save!
-        end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '回答のプラス投票を解除し、マイナス投票しました。' }
-        end
-      end 
-    
-    else
-      if params[:vote] == "posi"
-        @vote.is_positive = true
-        @question.nega_counts -= 1
-        @question.posi_counts += 1
-        
-        Vote.transaction do
-          @vote.save!
-          @question.save!
-        end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '質問のマイナス投票を解除し、プラス投票しました。' }
-        end
-        
-      elsif params[:vote] == "nega"
-        @vote.is_positive = false
-        @question.posi_counts -= 1
-        @question.nega_counts += 1
-        
-        Vote.transaction do
-          @vote.save!
-          @question.save!
-        end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '質問のプラス投票を解除し、マイナス投票しました。' }
-        end
-      end 
-      
-    end
-
-  
+      end
+      respond_to do |format|
+        format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "の" + "#{plus_or_minus_reverse(params[:vote])}" + "投票を解除し、" + "#{plus_or_minus(params[:vote])}" + "投票しました。"}
+      end
+    # rescue
+    #   respond_to do |format|
+    #     format.html { redirect_to question_path(@question), notice: '投票の変更が正常にできませんでした。' }
+    #   end
   end
 
 
   def destroy
-    @vote = Vote.find(params[:id])
-    @question = Question.find(params[:question_id])
-    
-    if @vote.answer.present?
-      @answer = Answer.find(params[:answer_id])
-      if params[:vote] == "posi"
-        @answer.posi_counts -= 1
-        
-        Vote.transaction do
-          @vote.destroy!
-          @answer.save!
+      Vote.transaction do
+        if params[:answer_id].present?
+          @answer = Answer.find(params[:answer_id])
+          destroy_save(@vote, @answer, params[:vote])
+        else
+          destroy_save(@vote, @question, params[:vote])
         end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '回答のプラス投票を解除しました。' }
-        end
-      elsif params[:vote] == "nega"
-        @vote.is_positive = false
-        @answer.nega_counts -= 1
-        
-        Vote.transaction do
-          @vote.destroy!
-          @answer.save!
-        end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '回答のマイナス投票を解除しました。' }
-        end
-      end 
-    
-    else
-      if params[:vote] == "posi"
-        @question.posi_counts -= 1
-        
-        Vote.transaction do
-          @vote.destroy!
-          @question.save!
-        end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '質問のプラス投票を解除しました。' }
-        end
-        
-      elsif params[:vote] == "nega"
-        @question.nega_counts -= 1
-        
-        Vote.transaction do
-          @vote.destroy!
-          @question.save!
-        end
-        
-        respond_to do |format|
-          format.html { redirect_to question_path(@question), notice: '質問のマイナス投票を解除しました。' }
-        end
-      end 
-      
-    end
-    
+      end
+      respond_to do |format|
+        format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "の" + "#{plus_or_minus(params[:vote])}" + "投票を解除しました。"}
+      end
+    # rescue
+    #   respond_to do |format|
+    #     format.html { redirect_to question_path(@question), notice: '投票の解除が正常にできませんでした。' }
+    #   end
   end
   
+  private
+  
+    def set_vote
+      @vote = Vote.find(params[:id])
+    end
+    
+    def set_question
+      @question = Question.find(params[:question_id])
+    end
+
+    def create_save(vote, question_or_answer, posi_or_nega)
+      if posi_or_nega == "posi"
+        vote.is_positive = true
+        question_or_answer.posi_counts += 1
+        question_or_answer.user.score += 1
+      elsif posi_or_nega == "nega"
+        vote.is_positive = false
+        question_or_answer.nega_counts += 1
+        question_or_answer.user.score -= 1
+      end
+      # voted_user = question_or_answer.user
+      # voted_user.save!
+      vote.save!
+      question_or_answer.save!
+    end
+  
+    def update_save(vote, question_or_answer, posi_or_nega)
+      if posi_or_nega == "posi"
+        vote.is_positive = true
+        question_or_answer.posi_counts += 1
+        question_or_answer.nega_counts -= 1
+        question_or_answer.user.score += 2
+      elsif posi_or_nega == "nega"
+        vote.is_positive = false
+        question_or_answer.posi_counts -= 1
+        question_or_answer.nega_counts += 1
+        question_or_answer.user.score -= 2
+      end
+      # voted_user = question_or_answer.user
+      # voted_user.save!
+      vote.save!
+      question_or_answer.save!
+    end
+  
+
+    def destroy_save(vote, question_or_answer, posi_or_nega)
+      if posi_or_nega == "posi"
+        question_or_answer.posi_counts -= 1
+        question_or_answer.user.score -= 1
+      elsif posi_or_nega == "nega"
+        question_or_answer.nega_counts -= 1
+        question_or_answer.user.score += 1
+      end
+      # voted_user = question_or_answer.user
+      # voted_user.save!
+      vote.destroy!
+      question_or_answer.save!
+    end
+    
+    def question_or_answer(vote)
+      vote.answer == nil ? "質問" : "回答"
+    end 
+  
+    def plus_or_minus(vote)
+      vote == "posi" ? "プラス" : "マイナス"
+    end 
+  
+    def plus_or_minus_reverse(vote)
+      vote == "posi" ? "マイナス" : "プラス"
+    end 
+
+
 end
