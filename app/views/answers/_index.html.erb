@@ -7,9 +7,9 @@
   <% unless answer.id.nil? %>
     <div class="row">
       <div class="col-xs-1 col-sm-1">
-          <i class="fa fa-caret-up fa-3x contribution_up"></i><br />
+          <%= render 'answers/vote_plus_form', {answer: answer, question: question} %>
           <span class="answer_contribution"><%= answer.posi_counts - answer.nega_counts %></span>
-          <i class="fa fa-caret-down fa-3x"></i><br />
+          <%= render 'answers/vote_minus_form', {answer: answer, question: question} %>
       </div>
       <div class="col-xs-11 visible-xs"> </div>
       <div class="col-xs-12 col-sm-11">

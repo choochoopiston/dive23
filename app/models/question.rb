@@ -4,9 +4,10 @@ class Question < ActiveRecord::Base
   has_many   :answers
   has_many   :votes
   has_many   :tag_relations
-  
+  accepts_nested_attributes_for :user
   validates_presence_of :title, :content, :user_id
   
   default_scope -> { where(deleted_flg: false) }
+
   
 end

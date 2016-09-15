@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :favorites
   has_many :votes
-  
+
   validates_presence_of :name
   
   default_scope -> { where(deleted_flg: false) }
@@ -18,4 +18,21 @@ class User < ActiveRecord::Base
   def favorite?(question)
     favorites.find_by(question_id: question.id)
   end
+  
+  def vote_plus?(question)
+    votes.where(is_positive: true).find_by(question_id: question.id)
+  end
+
+  def vote_plus_answer?(answer)
+    votes.where(is_positive: true).find_by(answer_id: answer.id)
+  end
+
+  def vote_minus?(question)
+    votes.where(is_positive: false).find_by(question_id: question.id)
+  end
+  
+  def vote_minus_answer?(answer)
+    votes.where(is_positive: false).find_by(answer_id: answer.id)
+  end
+  
 end
