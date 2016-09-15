@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :favorites
   has_many :votes
-  
+
   validates_presence_of :name
   
   default_scope -> { where(deleted_flg: false) }

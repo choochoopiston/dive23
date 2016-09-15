@@ -6,14 +6,14 @@ class VotesController < ApplicationController
     @vote = current_user.votes.build
     respond_to do |format|
       begin
-        Vote.transaction do
+        ActiveRecord::Base.transaction do
           if params[:answer_id].present?
             @answer = Answer.find(params[:answer_id])
             @vote.answer_id = params[:answer_id]
-            create_save(@vote, @answer, params[:vote])
+            vote_create(@vote, @answer, params[:vote])
           else
             @vote.question_id = params[:question_id]
-            create_save(@vote, @question, params[:vote])
+            vote_create(@vote, @question, params[:vote])
           end
         end
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "に" + "#{plus_or_minus(params[:vote])}" + "投票しました。"}
@@ -32,9 +32,9 @@ class VotesController < ApplicationController
         ActiveRecord::Base.transaction do
           if params[:answer_id].present?
             @answer = Answer.find(params[:answer_id])
-            update_save(@vote, @answer, params[:vote])
+            vote_change(@vote, @answer, params[:vote])
           else
-            update_save(@vote, @question, params[:vote])
+            vote_change(@vote, @question, params[:vote])
           end
         end
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "の" + "#{plus_or_minus_reverse(params[:vote])}" + "投票を解除し、" + "#{plus_or_minus(params[:vote])}" + "投票しました。"}
@@ -53,9 +53,9 @@ class VotesController < ApplicationController
         ActiveRecord::Base.transaction do
           if params[:answer_id].present?
             @answer = Answer.find(params[:answer_id])
-            destroy_save(@vote, @answer, params[:vote])
+            vote_destroy(@vote, @answer, params[:vote])
           else
-            destroy_save(@vote, @question, params[:vote])
+            vote_destroy(@vote, @question, params[:vote])
           end
         end
         format.html { redirect_to question_path(@question), notice: "#{question_or_answer(@vote)}" + "の" + "#{plus_or_minus(params[:vote])}" + "投票を解除しました。"}
@@ -77,7 +77,7 @@ class VotesController < ApplicationController
       @question = Question.find(params[:question_id])
     end
 
-    def create_save(vote, question_or_answer, posi_or_nega)
+    def vote_create(vote, question_or_answer, posi_or_nega)
       if posi_or_nega == "posi"
         vote.is_positive = true
         question_or_answer.posi_counts += 1
@@ -91,7 +91,7 @@ class VotesController < ApplicationController
       question_or_answer.save!
     end
   
-    def update_save(vote, question_or_answer, posi_or_nega)
+    def vote_change(vote, question_or_answer, posi_or_nega)
       if posi_or_nega == "posi"
         vote.is_positive = true
         question_or_answer.posi_counts += 1
@@ -108,7 +108,7 @@ class VotesController < ApplicationController
     end
   
 
-    def destroy_save(vote, question_or_answer, posi_or_nega)
+    def vote_destroy(vote, question_or_answer, posi_or_nega)
       if posi_or_nega == "posi"
         question_or_answer.posi_counts -= 1
         question_or_answer.user.score -= 1
