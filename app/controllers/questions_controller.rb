@@ -28,13 +28,19 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = current_user.questions.build(question_params)
-    @question.tag_list = params[:question][:tag_list]
     respond_to do |format|
-      if @question.save
+      begin
+        ActiveRecord::Base.transaction do
+          # question.tag_list=(tags)が呼ばれtagsにparam[:quesetion][:tag_list]が登録される
+          @question = current_user.questions.build(question_params)
+          # questionsとtag_relationsにデータが登録される
+          @question.save!
+        end
         format.html { redirect_to @question, notice: '質問を投稿しました。' }
-      else
-        format.html { render :new }
+      rescue => e
+        format.html { redirect_to new_question_path, notice: '質問を投稿出来ませんでした。' }
+        Rails.logger.error e.message
+        Rails.logger.error e.backtrace.join("\n")
       end
     end
   end
@@ -50,6 +56,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    #TODO n.uchiyama ここで同時に関連するTagRelationの論理削除を行う
     @question.deleted_flg = true
     @question.save
     respond_to do |format|
