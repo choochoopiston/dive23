@@ -29,6 +29,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = current_user.questions.build(question_params)
+    @question.tag_list = params[:question][:tag_list]
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: '質問を投稿しました。' }
@@ -62,7 +63,7 @@ class QuestionsController < ApplicationController
     end
 
     def question_params
-      params.require(:question).permit(:user_id, :title, :content, :photo, :favorite_counts, :posi_counts, :nega_counts, :deleted_flg)
+      params.require(:question).permit(:user_id, :title, :content, :photo, :favorite_counts, :posi_counts, :nega_counts, :deleted_flg, :tag_list)
     end
 
     def check_mine
