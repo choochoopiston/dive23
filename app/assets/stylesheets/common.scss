@@ -15,3 +15,8 @@
 a i:active {
   color: orange;
 }
+
+// tag-itのauto complete用のヘルプメッセージを非表示にする
+.ui-helper-hidden-accessible {
+  display: none;
+}
