@@ -1,5 +1,6 @@
 /* 
  * "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+ * "partials/*" must be imported at the end of this file.
  */
 @import "bootstrap-sprockets";
 @import 'bootstrap-custom';
@@ -8,4 +9,5 @@
 @import "jquery-ui";
 @import "jquery.tagit";
 @import "tagit.ui-zendesk";
+@import "library/*";
 @import "partials/*";

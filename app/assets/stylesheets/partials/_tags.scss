@@ -1,0 +1,8 @@
+.tag {
+  @include button-variant($tag-color, $tag-back, transparent);
+}
+
+.tag_row {
+  margin: 20px;
+  border-bottom: dotted 1px #E4E6E7;
+}

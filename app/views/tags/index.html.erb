@@ -6,9 +6,11 @@
     </ul>
     <p>タグとは、あなたの質問をよく似た他の質問と一緒に分類するキーワードまたはラベルのことです。適切なタグを使用することで、他のユーザーがあなたの質問を検索したり、質問に対して回答したりすることが容易になります。</p>
     <% @tags.in_groups_of(4, false) do |row| %>
+    <div class="col-sm-12 tag_row">
       <% row.each do |tag| %>
-        <div class="col-sm-3"><%= link_to tag.name, "#" %></div>
+        <div class="col-sm-3"><%= link_to tag.name, '#', { :class => "tag btn-sm" }%></div>
       <% end %>
+    </div>
     <% end %>
   </div>
 </div>
