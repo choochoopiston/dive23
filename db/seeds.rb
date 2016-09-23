@@ -33,3 +33,80 @@ Tag.create!( [
               { name: 'iphone' ,content: 'iPhone(アイフォーン)とは、Apple社が製造しているスマートフォンである。2007年1月に最初のモデルが発表され、同年6月に発売された。ポータブル音楽プレーヤー・携帯電話・PDAの機能を併せ持つ端末として発売。' },
               { name: 'git' ,content: 'Gitはオープンソースの分散型バージョン管理システムです。' }
             ] )
+
+email = "no@no.no"
+name = Faker::Name.name
+password = "password"
+User.create!(
+  email: email,
+  name: name,
+  password: password,
+  password_confirmation: password,
+)
+
+user = User.all.order(created_at: :desc).first
+user_id = user.id
+
+# 質問と回答１
+title ="これはテスト用の質問です。"
+content = 
+"
+お世話になっております。
+ruby初心者です。
+
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ？
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+
+以上、よろしくお願い致します。
+"
+
+Question.create!(
+  user_id: user_id,
+  title: title,
+  content: content,
+)
+
+question = Question.all.order(created_at: :desc).first
+question_id = question.id
+
+Ans1 = 
+"
+こんにちは！
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ？
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘ。
+
+"
+
+Ans2 = 
+"
+まず最初に確認なのですが。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+"
+
+Ans3 = 
+"
+ｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+"
+
+arr = [Ans1, Ans2, Ans3]
+
+arr.each do |n|
+  Answer.create!(
+  question_id: question_id,
+  user_id: user_id,
+  content: n,
+  )
+end
