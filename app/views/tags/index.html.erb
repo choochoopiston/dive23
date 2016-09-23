@@ -8,7 +8,7 @@
     <% @tags.in_groups_of(4, false) do |row| %>
     <div class="col-sm-12 tag_row">
       <% row.each do |tag| %>
-        <div class="col-sm-3"><%= link_to tag.name, '#', { :class => "tag btn-sm" }%><p class="excerpt"><%= tag.content %></p><p class="stats-row"><%= "作成日時：" + tag.created_at.to_s(:md_and_HM) if params[:tab] == 'new' %></p></div>
+        <div class="col-sm-3"><%= link_to tag.name, '#', { :class => "tag" }%><p class="excerpt"><%= tag.content %></p><p class="stats-row"><%= "作成日時：" + tag.created_at.to_s(:md_and_HM) if params[:tab] == 'new' %></p></div>
       <% end %>
     </div>
     <% end %>
