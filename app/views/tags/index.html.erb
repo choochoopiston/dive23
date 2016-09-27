@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-sm-12">
+    <ul class="nav nav-tabs">
+      <li class="pull-right <%= 'active' if params[:tab] == 'new' %>"><%= link_to '新規',tags_path(tab: :new) %></li>
+      <li class="pull-right <%= 'active' if params[:tab] == 'name' or params[:tab].nil? %>"><%= link_to '名前', tags_path(tab: :name) %></li>
+    </ul>
+    <p>タグとは、あなたの質問をよく似た他の質問と一緒に分類するキーワードまたはラベルのことです。適切なタグを使用することで、他のユーザーがあなたの質問を検索したり、質問に対して回答したりすることが容易になります。</p>
+    <% @tags.in_groups_of(4, false) do |row| %>
+    <div class="col-sm-12 tag_row">
+      <% row.each do |tag| %>
+        <%# TODO n.uchiyama クリックしたTagに紐づく質問の一覧画面を作成したら遷移先を設定する %>
+        <div class="col-sm-3"><%= link_to tag.name, '#', { :class => "tag" }%><p class="excerpt"><%= tag.content %></p><p class="stats-row"><%= "作成日時：" + tag.created_at.to_s(:md_and_HM) if params[:tab] == 'new' %></p></div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>

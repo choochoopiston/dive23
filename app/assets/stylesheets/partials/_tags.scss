@@ -1,0 +1,21 @@
+.tag_row {
+  margin: 5px 0px;
+  border-bottom: dotted 1px #E4E6E7;
+}
+
+.tag {
+  font-size: 12px;
+  @include button-variant(#39739d, #E1ECF4, transparent);
+  @include button-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, 0px);
+}
+
+.excerpt {
+  font-size: 12px;
+  margin: 4px 0px;
+  color: #858C93;
+}
+
+.stats-row{
+  font-size: 11px;
+  color: #3C3F44;
+}

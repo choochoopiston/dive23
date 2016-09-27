@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     resources :votes, only: [:create, :update, :destroy]
   end
   devise_for :users
-  resources :users, only: [:index] 
-  
+  resources :users, only: [:index]
+  resources :tags,  only: [:index]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
