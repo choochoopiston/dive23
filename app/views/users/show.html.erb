@@ -4,7 +4,8 @@
     <div class="col-sm-3">
         <div class="avatar-wrapper">
             <div class="avatar-card">
-                <div class="avatar-img"><%= avatar_lg(@user) %></div>
+                
+                <div class="avatar-img"><%= avatar_lg(@user) %></div><!--#FIXME hara avatar_lgヘルパーを引数でクラス渡せるように改修後、img-responsiveのクラスを付与する-->
                 <div class="reputation"><%= @user.score %><span class="label-uppercase">信用度</span></div>
             </div>
         </div>
@@ -30,9 +31,9 @@
             </div>
         </div>
         <%# TODO hara 課題要件定義外 余裕があれば以下準備中のもの実装する %>
-        <p><span class="font_grey"><i class="fa fa-history" aria-hidden="true"></i> 登録から xx 日(準備中)</span></p>
-        <p><span class="font_grey"><i class="fa fa-eye" aria-hidden="true"></i> XX回プロフィールが閲覧されました(準備中)</span></p>
-        <p><span class="font_grey"><i class="fa fa-clock-o" aria-hidden="true"></i> 前回のログイン：(準備中)</span></p>
-        <p><span class="font_grey"><i class="fa fa-calendar" aria-hidden="true"></i> ＸＸ日連続 計〇〇日(準備中)</span></p>
+        <!--<p><span class="font_grey"><i class="fa fa-history" aria-hidden="true"></i> 登録から xx 日(準備中)</span></p>-->
+        <!--<p><span class="font_grey"><i class="fa fa-eye" aria-hidden="true"></i> XX回プロフィールが閲覧されました(準備中)</span></p>-->
+        <!--<p><span class="font_grey"><i class="fa fa-clock-o" aria-hidden="true"></i> 前回のログイン：(準備中)</span></p>-->
+        <!--<p><span class="font_grey"><i class="fa fa-calendar" aria-hidden="true"></i> ＸＸ日連続 計〇〇日(準備中)</span></p>-->
     </div>
 </div>

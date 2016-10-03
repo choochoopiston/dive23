@@ -21,7 +21,7 @@ end
         when "medium"
           image_tag(user.avatar.medium, alt: user.name)
         when "large"
-          image_tag(user.avatar.large, alt: user.name, class: "img-responsive", style: "margin: 0 auto;")
+          image_tag(user.avatar.large, alt: user.name, class: "img-responsive") #FIXME hara クラスを引数で渡せる渡せるように改修する
         else
           image_tag(user.avatar, alt: user.name)
       end
@@ -32,7 +32,7 @@ end
         when "medium"
           image_tag('no_image_48.png', alt: user.name)
         when "large"
-          image_tag('no_image_164.png', alt: user.name, class: "img-responsive", style: "margin: 0 auto;")
+          image_tag('no_image_164.png', alt: user.name, class: "img-responsive") #FIXME haraクラスを引数で渡せる渡せるように改修する
         else
           image_tag('no_image.png', alt: user.name)
       end
