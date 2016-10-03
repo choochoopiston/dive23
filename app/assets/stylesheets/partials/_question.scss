@@ -49,4 +49,21 @@ a > .favorite_off {
 
 .question_user {
     background-color: rgba(180,200,220, 0.5);
+    padding: 10px;
+    overflow: hidden;
+}
+
+.question_user_action_time {
+    font-size: 85%;
+    margin-bottom: 3px;
+}
+.question_user_image {
+    height: 32px;
+    width: 32px;
+    float: left;
+}
+
+.question_user_details {
+    margin-left: 35px;
+    font-size: 80%;
 }
