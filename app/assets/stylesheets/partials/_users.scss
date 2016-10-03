@@ -7,3 +7,49 @@
     padding-left: 5px;
 }
 
+.users_show_name {
+    font-size: 200%;
+    font-weight: bold;
+    margin: 10px 0 6px 0;
+}
+
+.avatar-wrapper {
+    height: 280px;
+    border: 1px solid #c8ccd0;
+    border-radius: 4px;
+    padding: 17px;
+    box-shadow: 0 130px 0 #e7e8ea inset;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center; /* 縦方向中央揃え（Safari用） */
+    align-items: center; /* 縦方向中央揃え */
+    -webkit-justify-content: center; /* 横方向中央揃え（Safari用） */
+    justify-content: center; /* 横方向中央揃え */
+}
+
+
+.reputation {
+    padding: 12px 0;
+    font-size: 21px;
+    font-weight: bold;
+    color: #181a1c;
+    text-align: center;
+}
+
+.label-uppercase {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+    vertical-align: middle;
+    padding-left: 6px;
+}
+
+.user-stat {
+    margin-bottom: 10px;
+}
+
+.number  {
+    font-size: 18px;
+    font-weight: bold;
+    color: #181a1c;
+}

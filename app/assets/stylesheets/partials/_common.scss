@@ -20,3 +20,15 @@ a i:active {
 .ui-helper-hidden-accessible {
   display: none;
 }
+
+@mixin menu-tab-top-border {
+    border-top-color: orange;
+    border-top-width: 3px;
+    border-radius: 0;
+}
+.nav-tabs > li.active > a {
+    @include menu-tab-top-border;
+    &:hover {
+        @include menu-tab-top-border;
+    }
+}

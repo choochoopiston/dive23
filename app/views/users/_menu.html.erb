@@ -1,0 +1,10 @@
+<ul class="nav nav-tabs">
+    <li class="<%= 'active' if params[:id].present? %>">
+        <%= link_to 'プロフィール', user_path(@user) %>
+    </li>
+    <% if current_user == @user %>
+    <li class="<%= 'active' if params[:id].nil? %>">
+        <%= link_to '設定', edit_user_registration_path %>
+    </li>
+    <% end %>
+</ul>
