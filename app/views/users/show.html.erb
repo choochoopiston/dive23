@@ -1,1 +1,38 @@
-<%= render 'users/menu' %>
+<%= render 'users/menu' %><br />
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="avatar-wrapper">
+            <div class="avatar-card">
+                <div class="avatar-img"><%= avatar_lg(@user) %></div>
+                <div class="reputation"><%= @user.score %><span class="label-uppercase">信用度</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="users_show_name"><%= @user.name %></div>
+        <% if @user.profile.present? %>
+            <%= simple_format(@user.profile) %>
+        <% else %>
+            <p class="font_grey">（あなたの自己紹介は現在未記入です）</p>
+            <%= link_to "編集するにはここをクリック", edit_user_registration_path %>
+        <% end %>
+    </div>
+    <div class="col-sm-3">
+        <div class="user-stat row">
+            <div class="col-sm-6">
+                <div class="number"><%= @user.answers.count %></div>
+                回答
+            </div>
+            <div class="col-sm-6">
+                <div class="number"><%= @user.answers.count %></div>
+                質問
+            </div>
+        </div>
+        <%# TODO hara 課題要件定義外 余裕があれば以下準備中のもの実装する %>
+        <p><span class="font_grey"><i class="fa fa-history" aria-hidden="true"></i> 登録から xx 日(準備中)</span></p>
+        <p><span class="font_grey"><i class="fa fa-eye" aria-hidden="true"></i> XX回プロフィールが閲覧されました(準備中)</span></p>
+        <p><span class="font_grey"><i class="fa fa-clock-o" aria-hidden="true"></i> 前回のログイン：(準備中)</span></p>
+        <p><span class="font_grey"><i class="fa fa-calendar" aria-hidden="true"></i> ＸＸ日連続 計〇〇日(準備中)</span></p>
+    </div>
+</div>

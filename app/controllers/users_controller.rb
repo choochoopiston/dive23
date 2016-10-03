@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
+  
   def index
     @users = User.all.order(score: :desc, created_at: :asc)
   end
@@ -7,4 +8,5 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+  
 end
