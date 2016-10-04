@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show] do
     member do
       get 'favorite'
-      end
+    end
   end
   
   resources :tags,  only: [:index]
