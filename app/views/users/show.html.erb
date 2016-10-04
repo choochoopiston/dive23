@@ -42,7 +42,7 @@
         <ul class="nav nav-pills">
           <li class="pull-left"><h4>ユーザー投稿</h4></li>
           <li class="pull-right <%= 'active' if params[:order] == 'vote' %>"><%= link_to '票数', user_path(@user, order: :vote, tab: params[:tab]) %></li>
-          <li class="pull-right <%= 'active' if params[:tab].nil? && params[:order].nil? || params[:tab] == 'answer' && params[:order].nil? %>"><%= link_to '新着', user_path(@user, tab: params[:tab]) %></li>
+          <li class="pull-right <%= 'active' if params[:order].nil? %>"><%= link_to '新着', user_path(@user, tab: params[:tab]) %></li>
           <li class="pull-right"><div class="separate_line">|</div></li>
           <li class="pull-right <%= 'active' if params[:tab] == 'answer' %>"><%= link_to '回答', user_path(@user, tab: :answer, order: params[:order]) %></li>
           <li class="pull-right <%= 'active' if params[:tab].nil? %>"><%= link_to '質問', user_path(@user, order: params[:order]) %></li>
