@@ -16,5 +16,22 @@
 }
 
 .answer_user {
-    background-color: rgba(180,200,220, 0.5);
+    background-color: rgba(180,200,220, 0.2);
+    padding: 10px;
+    overflow: hidden;
+}
+
+.answer_user_action_time {
+    font-size: 85%;
+    margin-bottom: 3px;
+}
+.answer_user_image {
+    height: 32px;
+    width: 32px;
+    float: left;
+}
+
+.answer_user_details {
+    margin-left: 35px;
+    font-size: 80%;
 }

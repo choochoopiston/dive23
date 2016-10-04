@@ -20,10 +20,13 @@
             　<%= link_to '編集', "#", class: "font_grey" %>&emsp;<%= link_to "削除", question_answer_path(question, answer), method: :delete, class: "font_grey",  data: { confirm: '本当に削除していいですか？'} %>
             <% end %>
           </div>
-          <div class="col-sm-offset-4 col-sm-5 answer_user">
-            <!--<%= image_tag(answer.user.avatar) %> #TODO hara ユーザ画像登録実装後 デザイン修正必要あり-->
-            <!--<%= link_to answer.user.name, "#" %> #TODO hara ユーザ名必須にするかしないかでデザイン修正必要あり-->
-            <%= answer.user.score %>
+          <div class="col-sm-offset-6 col-sm-3 answer_user">
+            <div class="answer_user_action_time">回答日時: <%= answer.created_at.to_s(:md_and_HM) %></div>
+            <div class="answer_user_image"><%= avatar_sm(answer.user) %></div>
+            <div class="answer_user_details">
+              <%= link_to answer.user.name, answer.user %><br />
+              <%= answer.user.score %>
+            </div>
           </div>
         </div>
       </div>
