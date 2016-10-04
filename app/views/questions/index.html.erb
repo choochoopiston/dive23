@@ -1,11 +1,9 @@
 <div class="row">
   <div class="col-sm-9">
     <ul class="nav nav-tabs">
-      <% if user_signed_in? %><li class="pull-right <%= 'active' if params[:tab] == 'my_favorite' %>"><%= link_to 'お気に入り', questions_path(tab: :my_favorite) %></li><% end %>
       <li class="pull-right <%= 'active' if params[:tab] == 'favorite' %>"><%= link_to '人気', questions_path(tab: :favorite) %></li>
       <li class="pull-right <%= 'active' if params[:tab] == 'active' or current_page?(root_path) %>"><%= link_to 'アクティブ', questions_path(tab: :active) %></li>
     </ul>
-    <%= "お気に入り登録した質問はありません。" if params[:tab] == 'my_favorite' && @questions.empty? %>
     <% @questions.each do |question| %>
       <div class="row">
         <div class="col-sm-1">

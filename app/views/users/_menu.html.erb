@@ -1,10 +1,19 @@
 <ul class="nav nav-tabs">
-    <li class="<%= 'active' if params[:id].present? %>">
+    <li class="<%= 'active' if current_page?(user_path(@user)) %>">
         <%= link_to 'プロフィール', user_path(@user) %>
     </li>
-    <% if current_user == @user %>
-    <li class="<%= 'active' if params[:id].nil? %>">
-        <%= link_to '設定', edit_user_registration_path %>
+    <li class="<%= 'active' if params[:tab] == 'favorite' or current_page?(favorite_user_path(@user)) %>">
+        <%= link_to 'お気に入り', favorite_user_path(@user, tab: 'favorite') %>
     </li>
+    <% if current_user == @user %>
+        <li class="<%= 'active' if params[:id].nil? %>">
+            <%= link_to '設定', edit_user_registration_path %>
+        </li>
+    <% end %>
+    <% if params[:tab] == 'favorite' or current_page?(favorite_user_path(@user)) %>
+        <li class="pull-right mini_avatar hidden-xs">
+            <div class="mini_user_name"><%= @user.name %></div>
+            <div class="mini_user_img"><%= avatar_sm(@user) %></div>
+        </li>
     <% end %>
 </ul>
