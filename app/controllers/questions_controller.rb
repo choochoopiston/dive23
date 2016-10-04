@@ -9,9 +9,6 @@ class QuestionsController < ApplicationController
       @questions = Question.all.order(updated_at: :desc) #TODO n.uchiyama 紐づくanswersの更新日時とソート順を考慮する必要あり
     when "favorite"
       @questions = Question.all.order(favorite_counts: :desc, updated_at: :desc) #TODO n.uchiyama 紐づくanswersの更新日時とソート順を考慮する必要あり
-    # when "my_favorite"
-    #   @favorites = current_user.favorites
-    #   @questions = @favorites.map {|favorite| favorite.question }
     else
       @questions = Question.all.order(updated_at: :desc)
     end
