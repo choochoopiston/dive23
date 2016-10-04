@@ -27,9 +27,4 @@ class Question < ActiveRecord::Base
     end
   end
   
-  # 任意の質問において、特定のユーザーがしているお気に入りだけを返す
-  def my_favorite(user)
-    favorites.find_by(user_id: user.id)
-  end
-  
 end

@@ -27,7 +27,6 @@ class UsersController < ApplicationController
   
   def favorite
     @favorites = @user.favorites.order("created_at DESC")
-    @questions = @favorites.map {|favorite| favorite.question }
   end
   
   private
