@@ -26,7 +26,7 @@
                 回答
             </div>
             <div class="col-sm-6">
-                <div class="number"><%= @user.answers.count %></div>
+                <div class="number"><%= @user.questions.count %></div>
                 質問
             </div>
         </div>
@@ -35,5 +35,43 @@
         <!--<p><span class="font_grey"><i class="fa fa-eye" aria-hidden="true"></i> XX回プロフィールが閲覧されました(準備中)</span></p>-->
         <!--<p><span class="font_grey"><i class="fa fa-clock-o" aria-hidden="true"></i> 前回のログイン：(準備中)</span></p>-->
         <!--<p><span class="font_grey"><i class="fa fa-calendar" aria-hidden="true"></i> ＸＸ日連続 計〇〇日(準備中)</span></p>-->
+    </div>
+</div>
+<div class="row" id="user_posts">
+    <div class="col-sm-offset-3 col-sm-9">
+        <ul class="nav nav-pills">
+          <li class="pull-left"><h4>ユーザー投稿</h4></li>
+          <li class="pull-right <%= 'active' if params[:order] == 'vote' %>"><%= link_to '票数', user_path(@user, order: :vote, tab: params[:tab]) %></li>
+          <li class="pull-right <%= 'active' if params[:order].nil? %>"><%= link_to '新着', user_path(@user, tab: params[:tab]) %></li>
+          <li class="pull-right"><div class="separate_line">|</div></li>
+          <li class="pull-right <%= 'active' if params[:tab] == 'answer' %>"><%= link_to '回答', user_path(@user, tab: :answer, order: params[:order]) %></li>
+          <li class="pull-right <%= 'active' if params[:tab].nil? %>"><%= link_to '質問', user_path(@user, order: params[:order]) %></li>
+        </ul>
+        <% unless @questions.nil? %>
+            <%= ('<div class="no_questions">このユーザーはまだ質問をしたことがありません。</div>').html_safe if @questions.empty? %>
+        <% end %>
+        <% if @questions.present? %>
+            <% @questions.each do |question| %>
+                <div class="my_question">
+                    <i class="fa fa-question-circle-o fa-lg"></i>
+                    <div class="btn-xs btn-success question_score"><%= question.posi_counts - question.nega_counts %></div>
+                    <div class="question_heading"><%= link_to truncate(question.title, length: 30), question %></div>
+                    <div class="question_time"><%= question.created_at.to_s(:ymd) %></div>
+                </div>
+            <% end %>
+        <% end %>
+        <% unless @answers.nil? %>
+            <%= ('<div class="no_answers">このユーザーはまだ回答をしたことがありません。</div>').html_safe if @answers.empty? %>
+        <% end %>
+        <% if @answers.present? %>
+            <% @answers.each do |answer| %>
+                <div class="my_answer">
+                    <i class="fa fa-comment-o fa-lg"></i>
+                    <div class="btn-xs btn-success answer_score"><%= answer.posi_counts - answer.nega_counts %></div>
+                    <div class="answer_heading"><%= link_to truncate(answer.content, length: 30), answer.question %></div>
+                    <div class="answer_time"><%= answer.created_at.to_s(:ymd) %></div>
+                </div>
+            <% end %>
+        <% end %>
     </div>
 </div>

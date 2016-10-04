@@ -53,3 +53,52 @@
     font-weight: bold;
     color: #181a1c;
 }
+
+.my_question, .my_answer {
+    border-top: 1px solid #e4e6e8;
+    padding: 14px 0 13px 0;
+    overflow: hidden;
+}
+
+.question_score, .answer_score {
+    display: inline-block;
+    min-width: 30px;
+    text-align: center;
+    margin: 0 3px;
+}
+
+.question_heading, .answer_heading {
+    display: inline-block;
+}
+
+.question_time, .answer_time {
+    float: right;
+}
+
+div#user_posts .nav-pills {
+    border-radius: 0px;
+    padding: 0 15px;
+    margin: 25px 0px 10px;
+
+}
+
+div#user_posts .nav-pills > li > a {
+    border-radius: 0px;
+    padding: 3px 7px;
+    margin: 7px 0px;
+}
+
+div#user_posts .nav-pills > li.active > a {
+    color: black;
+    background-color: white;
+    border-bottom: 1px solid orange;
+}
+
+.no_questions, .no_answers {
+    border-top: 1px solid #e4e6e8;
+    padding: 10px 0;
+}
+
+.separate_line {
+    margin: 10px 3px;
+}
