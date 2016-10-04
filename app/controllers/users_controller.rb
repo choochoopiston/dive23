@@ -7,6 +7,22 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    case params[:tab]
+    when "answer"
+      case params[:order]
+      when "vote"
+        @answers = @user.answers.order("posi_counts-nega_counts DESC")
+      else
+        @answers = @user.answers.order("created_at DESC")
+      end
+    else
+      case params[:order]
+      when "vote"
+        @questions = @user.questions.order("posi_counts-nega_counts DESC")
+      else
+        @questions = @user.questions.order("created_at DESC")
+      end
+    end
   end
   
 end
