@@ -20,10 +20,11 @@ class Question < ActiveRecord::Base
     tags.map(&:name).join(",")
   end
   
-  # 入力されたタグがDBに無ければ登録
+  # 入力されたタグがDBに無ければ登録。
   def tag_list=(tags)
     self.tags = tags.split(",").map do |t|
       Tag.find_or_create_by!(name: t.strip)
     end
   end
+  
 end

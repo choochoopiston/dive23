@@ -1,0 +1,35 @@
+<%= render 'users/menu' %><br />
+<div class="mini_avatar visible-xs">
+    <div class="mini_user_name"><%= @user.name %></div>
+    <div class="mini_user_img"><%= avatar_sm(@user) %></div>
+</div>
+<% if @favorites.empty? %>
+<div class="col-xs-12">
+    <p class="no_favorites">このユーザーには、お気に入りの質問はありません。</p>
+</div>
+<% else %>
+<div class="col-xs-12 favorite-list">
+    <h4 id="favorite_heading"><%= "#{@favorites.count}件のお気に入り" %></h4>
+    <% @favorites.each do |favorite| %>
+    <div class="favorite-wrapper clearfix">
+        <div class="favorite_counts pull-left">
+            <%= render '/questions/favorite_form', question: favorite.question %>
+        </div>
+        <div class="favorite_votes pull-left">
+            <div class="mini_count"><%= favorite.question.posi_counts - favorite.question.nega_counts %></div>
+            <div class="small_title">票</div>
+        </div>
+        <div class="favorite_answers pull-left">
+            <div class="mini_count"><%= favorite.question.answers.count %></div>
+            <div class="small_title">回答</div>
+        </div>
+        <div class="favorite_question pull-left">
+            <%= link_to truncate(favorite.question.title, length: 50), favorite.question %>
+        </div>
+        <div class="favorite_time pull-right">
+            <%= favorite.created_at.to_s(:ymd_and_HM) %>
+        </div>
+    </div>
+    <% end %>
+</div>
+<% end %>

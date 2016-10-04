@@ -102,3 +102,20 @@ div#user_posts .nav-pills > li.active > a {
 .separate_line {
     margin: 10px 3px;
 }
+
+.mini_avatar {
+    overflow: hidden;
+}
+.mini_user_name {
+    margin: 0 10px;
+    padding-top: 10px;
+    float: left;
+}
+
+.mini_user_img {
+    float: left;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    vertical-align: middle;
+}
