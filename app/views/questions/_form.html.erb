@@ -8,7 +8,7 @@
 </script>
 
 <div class="row">
-  <div class="col-sm-7">
+  <div class="col-sm-8">
     <%= form_for(question, :html => {:class => "form-horizontal"}) do |f| %>
       <% if question.errors.any? %>
         <div id="error_explanation">
@@ -21,24 +21,39 @@
         </div>
       <% end %>
       <div class="form-group">
-        <div class="row">
           <div class="col-sm-2">
-            <%= f.label :タイトル,class: 'control-label' %>
-          </div>
-          <div class="col-sm-10">
-            <%= f.text_field :title, class: 'form-control' %>
-          </div>
+          <%= f.label :タイトル, class: 'control-label' %>
+        </div>
+        <div class="col-sm-10">
+          <%= f.text_field :title, class: "form-control", placeholder: "プログラミングに関しての質問は何ですか？具体的に書いてください。" %>
         </div>
       </div>
       <div class="form-group">
-        <%= f.text_area :content, class: 'form-control' %>
+        <div class="col-xs-12">
+          <%= f.text_area :content, rows: 7, class: 'form-control' %>
+        </div>
       </div>
       <div class="form-group">
-        <%= f.text_field :tag_list, class: 'form-control', id: "tags" %>
+        <div class="col-xs-12">
+          <%= f.label :タグ, class: 'control-label' %>("rails", "html", "css"のようなタグが登録できます。)
+        </div>
+        <div class="col-xs-12">
+          <%= f.text_field :tag_list, class: 'form-control', id: "tags" %>
+        </div>
       </div>
       <div class="form-group">
-        <%= f.submit :class => 'btn btn-info' %>
+        <div class="col-xs-12">
+          <%= f.submit :class => 'btn btn-info' %>
+        </div>
       </div>
     <% end %>
+  </div>
+  <div class="col-sm-4">
+    <div class="how_to_question">
+      <h5><strong>質問するその前に</strong></h5>
+      <p>このサイトはプログラミングに関するQ&Aを対象にしています。</p>
+      <p>単なる議論に終わらず、解決可能な質問を歓迎します。</p>
+      <p>これまでに試したことや調べたことを含め、質問内容を詳しく書くことで回答がつきやすくなります。</p>
+    </div>
   </div>
 </div>
