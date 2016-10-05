@@ -1,14 +1,16 @@
 .favorite_count {
-    display: block;
     font-size: 110%;
     width: 25px;
     text-align: center;
-    margin-top: -10px;
+    margin-top: -3px;
 }
 
 .favorite_star {
     padding-left: 3px;
-    margin-bottom: 10px;
+}
+
+.question_index_favorites .favorite_star {
+    padding-left: 0px;
 }
 
 .favorite_on {
@@ -41,14 +43,6 @@
 
 .favorite_question, .favorite_time {
     padding-top: 3px;
-}
-
-.mini_count {
-    font-size: 130%;
-}
-
-.small_title {
-    font-size: 50%;
 }
 
 p.no_favorites {

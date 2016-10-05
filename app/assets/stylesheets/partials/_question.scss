@@ -5,7 +5,6 @@
     font-size: 150%;
 }
 
-
 .question_contribution {
     display: block;
     font-size: 110%;
@@ -13,12 +12,10 @@
     text-align: center;
 }
 
-
 .question_content {
     display: block;
     min-height: 200px;
 }
-
 
 .question_useronly {
     margin-left: -15px;
@@ -49,4 +46,42 @@
     border: 1px solid #E0DCBF;
     padding: 15px;
     background-color: #FFF8DC;
+}
+
+.question_index_list {
+    padding: 7px 0 10px;
+    border-bottom: 1px solid #e4e6e8;
+}
+.question_index_content {
+    padding-bottom: 5px;
+    font-size: 90%;
+}
+
+.question_stats_container {
+    @media screen and (max-width: 767px) {
+        overflow: hidden;
+    }
+ }
+
+.user-info {
+    padding: 5px 6px 7px 7px;
+}
+
+.question_index_counts, .question_index_answers, .question_index_favorites {
+    width: 55px;
+    text-align: center;
+    padding: 2px 15px;
+    /* 767px以下用（タブレット／スマートフォン用）の記述 */
+    @media screen and (max-width: 767px) {
+        display: inline-block;
+    }
+}
+
+.all_questions_count {
+    font-size: 150%;
+}
+
+.green {
+    border: 1px solid green;
+    color: green;
 }
