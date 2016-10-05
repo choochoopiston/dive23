@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_action :set_question, only: [:create, :update, :destroy]
+  before_action :set_question, :check_mine, only: [:create, :update, :destroy]
   before_action :set_vote, only: [:update, :destroy]
   
   def create
@@ -75,6 +75,16 @@ class VotesController < ApplicationController
     
     def set_question
       @question = Question.find(params[:question_id])
+    end
+    
+    def check_mine
+      if @question.user == current_user
+        if params[:answer_id].present?
+          redirect_to @question, notice: '自分の回答には投票できません。'
+        else
+          redirect_to @question, notice: '自分の質問には投票できません。'
+        end
+      end
     end
 
     def vote_create(vote, question_or_answer, posi_or_nega)
