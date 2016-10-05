@@ -50,3 +50,41 @@
     padding: 15px;
     background-color: #FFF8DC;
 }
+
+.question_index_list {
+    padding: 7px 0 10px;
+    border-bottom: 1px solid #e4e6e8;
+}
+.question_index_content {
+    padding-bottom: 5px;
+    font-size: 90%;
+}
+
+.question_stats_container {
+    padding-top: 5px;
+    @media screen and (max-width: 767px) {
+        overflow: hidden;
+    }
+ }
+
+.question_summary {
+}
+
+.user-info {
+    padding: 5px 6px 7px 7px;
+}
+
+.question_index_counts, .question_index_answers, .question_index_favorites {
+    width: 45px;
+    text-align: center;
+    padding: 0 10px;
+    margin-bottom: 5px;
+    /* 767px以下用（タブレット／スマートフォン用）の記述 */
+    @media screen and (max-width: 767px) {
+        display: inline-block;
+    }
+}
+
+.all_questions_count {
+    font-size: 150%;
+}

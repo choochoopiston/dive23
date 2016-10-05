@@ -8,5 +8,7 @@
     <% end %>
 <% end %>
 <% if question.favorites.count > 0 %>
-    <span class="favorite_count"><%= question.favorites.count %></span>
+    <div class="favorite_count"><%= question.favorites.count %></div>
+<% else %>
+    <div class="favorite_count">0</div>
 <% end %>

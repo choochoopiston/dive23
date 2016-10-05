@@ -1,31 +1,51 @@
 <div class="row">
   <div class="col-sm-9">
     <ul class="nav nav-tabs">
+      <li class="pull-left"><h4>すべての質問</h4></li>
       <li class="pull-right <%= 'active' if params[:tab] == 'favorite' %>"><%= link_to '人気', questions_path(tab: :favorite) %></li>
       <li class="pull-right <%= 'active' if params[:tab] == 'active' or current_page?(root_path) %>"><%= link_to 'アクティブ', questions_path(tab: :active) %></li>
     </ul>
     <% @questions.each do |question| %>
-      <div class="row">
-        <div class="col-sm-1">
-          <%= question.posi_counts - question.nega_counts %>
-          <p>票</p>
-        </div>
-        <div class="col-sm-1">
-          <%= question.answers.count %>
-          <p>回答</p>
-        </div>
-        <div class="col-sm-2">
-          <%= question.favorite_counts %>
-          <p>お気に入り</p>
-        </div>
-        <div class="col-sm-6">
-          <%= link_to question.title, question %> <%# TODO n.uchiyama 本家の真似をするならここに関連するTagを表示 %> 
-        </div>
-        <div class="col-sm-2">
-          <%= question.user.name %>
-          <%= question.user.score %>
-        </div>
-      </div>
+        <div class="question_index_list">
+          <div class="row">
+            <div class="col-sm-1 question_stats_container">
+                <div class="question_index_counts">
+                  <div class="mini_count"><%= question.posi_counts - question.nega_counts %></div>
+                  <div class="small_title">票</div>
+                </div>
+                <div class="question_index_answers">
+                    <div class="mini_count"><%= question.answers.count %></div>
+                    <div class="small_title">回答</div>
+                </div>
+                <div class="question_index_favorites">
+                    <%= render '/questions/favorite_form', question: question %>
+                </div>
+            </div>
+            <div class="col-sm-11 question_summary">
+                <h4><%= link_to question.title, question %></h4>
+                <div class="question_index_content">
+                  <%= truncate(question.content, length: 195) %>
+                </div>
+                <div class="question_index_stats">
+                  <div class="col-sm-9">
+                    <!--#TODO 関連するタグ表示-->
+                  </div>
+                  <div class="col-sm-3 user-info">
+                    <div class="question_user_action_time">質問日時: <%= question.created_at.to_s(:md_and_HM) %></div>
+                    <div class="question_user_image"><%= avatar_sm(question.user) %></div>
+                    <div class="question_user_details">
+                      <%= link_to question.user.name, question.user %><br />
+                      <%= question.user.score %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+       </div>
     <% end %>
+  </div>
+  <div class="col-sm-3">
+    <div class="all_questions_count"><%= @questions.count %></div>
+    質問
   </div>
 </div>
