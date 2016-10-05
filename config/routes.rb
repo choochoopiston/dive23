@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     end
     resources :favorites, only: [:create, :destroy]
     resources :votes, only: [:create, :update, :destroy]
+    collection do
+      get 'tagged'
+    end
   end
   devise_for :users
   resources :users, only: [:index, :show] do
