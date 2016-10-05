@@ -14,8 +14,12 @@
         <% if @user.profile.present? %>
             <%= simple_format(@user.profile) %>
         <% else %>
-            <p class="font_grey">（あなたの自己紹介は現在未記入です）</p>
-            <%= link_to "編集するにはここをクリック", edit_user_registration_path %>
+            <% if @user == current_user %>
+                <p class="font_grey">（あなたの自己紹介は現在未記入です）</p>
+                <%= link_to "編集するにはここをクリック", edit_user_registration_path %>
+            <% else %>
+                <p class="font_grey">このユーザーは自身のことを秘密にしたいようです。忍者でしょうか？</p>
+            <% end %>
         <% end %>
     </div>
     <div class="col-sm-3">
