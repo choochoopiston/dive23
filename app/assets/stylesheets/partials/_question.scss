@@ -5,7 +5,6 @@
     font-size: 150%;
 }
 
-
 .question_contribution {
     display: block;
     font-size: 110%;
@@ -13,12 +12,10 @@
     text-align: center;
 }
 
-
 .question_content {
     display: block;
     min-height: 200px;
 }
-
 
 .question_useronly {
     margin-left: -15px;
@@ -61,14 +58,10 @@
 }
 
 .question_stats_container {
-    // padding-top: 5px;
     @media screen and (max-width: 767px) {
         overflow: hidden;
     }
  }
-
-.question_summary {
-}
 
 .user-info {
     padding: 5px 6px 7px 7px;
@@ -78,7 +71,6 @@
     width: 55px;
     text-align: center;
     padding: 2px 15px;
-    // margin-bottom: 5px;
     /* 767px以下用（タブレット／スマートフォン用）の記述 */
     @media screen and (max-width: 767px) {
         display: inline-block;
