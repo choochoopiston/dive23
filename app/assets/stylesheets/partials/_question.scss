@@ -61,7 +61,7 @@
 }
 
 .question_stats_container {
-    padding-top: 5px;
+    // padding-top: 5px;
     @media screen and (max-width: 767px) {
         overflow: hidden;
     }
@@ -75,10 +75,10 @@
 }
 
 .question_index_counts, .question_index_answers, .question_index_favorites {
-    width: 45px;
+    width: 55px;
     text-align: center;
-    padding: 0 10px;
-    margin-bottom: 5px;
+    padding: 2px 15px;
+    // margin-bottom: 5px;
     /* 767px以下用（タブレット／スマートフォン用）の記述 */
     @media screen and (max-width: 767px) {
         display: inline-block;
@@ -87,4 +87,9 @@
 
 .all_questions_count {
     font-size: 150%;
+}
+
+.green {
+    border: 1px solid green;
+    color: green;
 }
