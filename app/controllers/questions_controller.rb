@@ -15,9 +15,9 @@ class QuestionsController < ApplicationController
   end
 
   def tagged
-    @quesions = Question.tagged_with(params[:tag_id])
+    @questions = Question.tagged_with(params[:tag_id])
     @tag = Tag.find(params[:tag_id])
-    if @quesions.blank?
+    if @questions.blank?
       @questions = Array.new
       flash.now[:notice] = "現在、そのタグに関連する質問はありません。"
     end
