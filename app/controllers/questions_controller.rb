@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :check_mine, only: [:edit, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show, :tagged]
 
   def index
     case params[:tab] 
@@ -11,6 +11,15 @@ class QuestionsController < ApplicationController
       @questions = Question.all.order(favorite_counts: :desc, updated_at: :desc) #TODO n.uchiyama 紐づくanswersの更新日時とソート順を考慮する必要あり
     else
       @questions = Question.all.order(updated_at: :desc)
+    end
+  end
+
+  def tagged
+    @quesions = Question.tagged_with(params[:tag_id])
+    @tag = Tag.find(params[:tag_id])
+    if @quesions.blank?
+      @questions = Array.new
+      flash.now[:notice] = "現在、そのタグに関連する質問はありません。"
     end
   end
 
@@ -75,7 +84,7 @@ class QuestionsController < ApplicationController
 
     def check_mine
       unless @question.user.id == current_user.id
-        redirect_to :questions, notice: '編集権限がありません' #TODO m.kitamura メッセージ定義
+        redirect_to :questions, notice: '編集権限がありません'
       end
     end
 end

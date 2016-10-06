@@ -11,8 +11,8 @@ class Question < ActiveRecord::Base
   default_scope -> { where(deleted_flg: false) }
 
   # 指定したタグが付いたquestionsを検索
-  def self.tagged_with(tag)
-    Tag.find_by!(name: tag).questions
+  def self.tagged_with(tag_id)
+    Tag.find_by(id: tag_id).questions
   end
 
   # questionに紐づくtagsを返す
