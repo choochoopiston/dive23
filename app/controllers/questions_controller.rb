@@ -18,8 +18,13 @@ class QuestionsController < ApplicationController
     @questions = Question.tagged_with(params[:tag_id])
     @tag = Tag.find(params[:tag_id])
     if @questions.blank?
+      # nilの場合は画面表示用に０件の配列に変換する
       @questions = Array.new
       flash.now[:notice] = "現在、そのタグに関連する質問はありません。"
+    elsif params[:tab] == "votes" 
+      @questions = @questions.sort_by{|question| question.posi_counts - question.nega_counts}.reverse
+    else
+      @questions = @questions.sort_by{|question| question.created_at}.reverse
     end
   end
 
