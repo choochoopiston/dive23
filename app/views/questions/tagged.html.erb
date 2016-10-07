@@ -10,6 +10,6 @@
   <div class="col-sm-3">
     <div class="all_questions_count"><%= @questions.count %></div>
     <p>タグ付けされた質問数</p>
-    <%= link_to @tag.name, tagged_questions_path(tag_id: @tag.id), { :class => "tag" }%>
+    <%= link_to @tag.name, tagged_questions_path(tag_id: @tag.id, tab: :newest), { :class => "tag" }%>
   </div>
 </div>

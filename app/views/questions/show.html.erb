@@ -17,7 +17,7 @@
         <div class="col-sm-12">
           <ul class="list-inline">
             <% @question.tags.each do |tag| %>
-              <li><%= link_to tag.name, tagged_questions_path(tag_id: tag.id), { :class => "tag" }%></li>
+              <li><%= link_to tag.name, tagged_questions_path(tag_id: tag, tab: :newest), { :class => "tag" }%></li>
             <% end %>
           </ul>
         </div>
