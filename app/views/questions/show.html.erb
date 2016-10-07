@@ -15,7 +15,9 @@
       <%= simple_format(@question.content, class: "question_content") %>
       <div class="row">
         <div class="col-sm-12">
-          <!--属するタグを表示 #TODO hara タグ機能実装後 デザイン修正必要あり-->
+          <% @question.tags.each do |tag| %>
+          <p class="tag"><%= tag.name %></p>
+          <% end %>
         </div>
       </div>
       <div class="row">
