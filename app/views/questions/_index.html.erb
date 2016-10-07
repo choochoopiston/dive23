@@ -21,7 +21,11 @@
             </div>
             <div class="question_index_stats">
               <div class="col-sm-9">
-                <!--#TODO 関連するタグ表示-->
+              <ul class="list-inline">
+                <% question.tags.each do |tag| %>
+                  <li><%= link_to tag.name, tagged_questions_path(tag_id: tag, tab: :newest), { :class => "tag" }%></li>
+                <% end %>
+              </ul>
               </div>
               <div class="col-sm-3 user-info">
                 <div class="question_user_action_time">質問日時: <%= question.created_at.to_s(:md_and_HM) %></div>
