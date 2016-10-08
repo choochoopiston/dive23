@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-sm-9">
+    <ul class="nav nav-tabs">
+      <li class="pull-left"><h4>タグ付けされた質問</h4></li>
+      <li class="pull-right <%= 'active' if params[:tab] == 'votes'  %>"><%= link_to '票'        , tagged_questions_path(tag_id: @tag.id ,tab: :votes)  %></li>
+      <li class="pull-right <%= 'active' if params[:tab] == 'newest' %>"><%= link_to '新着'      , tagged_questions_path(tag_id: @tag.id ,tab: :newest) %></li>
+    </ul>
+    <%= render 'index', question: @questions %>
+  </div>
+  <div class="col-sm-3">
+    <div class="all_questions_count"><%= @questions.count %></div>
+    <p>タグ付けされた質問数</p>
+    <%= link_to @tag.name, tagged_questions_path(tag_id: @tag.id, tab: :newest), { :class => "tag" }%>
+  </div>
+</div>

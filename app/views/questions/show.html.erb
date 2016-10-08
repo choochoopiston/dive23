@@ -15,13 +15,17 @@
       <%= simple_format(@question.content, class: "question_content") %>
       <div class="row">
         <div class="col-sm-12">
-          <!--属するタグを表示 #TODO hara タグ機能実装後 デザイン修正必要あり-->
+          <ul class="list-inline">
+            <% @question.tags.each do |tag| %>
+              <li><%= link_to tag.name, tagged_questions_path(tag_id: tag, tab: :newest), { :class => "tag" }%></li>
+            <% end %>
+          </ul>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-3 question_useronly">
           <% if @question.user == current_user %>
-          　<%= link_to '編集', edit_question_path(@question), class: "font_grey" %>&emsp;<%= link_to "削除", @question, method: :delete, class: "font_grey",  data: { confirm: '本当に削除していいですか？'} %>
+          <%= link_to '編集', edit_question_path(@question), class: "font_grey" %>&emsp;<%= link_to "削除", @question, method: :delete, class: "font_grey",  data: { confirm: '本当に削除していいですか？'} %>
           <% end %>
         </div>
         <div class="col-sm-offset-5 col-sm-4 question_user">
