@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+#Create tags
 Tag.create!( [
               { name: 'javascript',content: 'JavaScriptとは、プログラミング言語のひとつである。Javaと名前が似ているが、異なるプログラミング言語である。 オブジェクト指向のスクリプト言語であることを特徴とする。 ' }, 
               { name: 'swift' ,content: 'Swiftとは、iOS・OS X開発のためにAppleが開発したプログラム言語である。Objective-CやObjective-C++、C言語と共存することも考慮されており、比較的スムーズに移行できるとされている。' },
@@ -34,43 +36,24 @@ Tag.create!( [
               { name: 'git' ,content: 'Gitはオープンソースの分散型バージョン管理システムです。' }
             ] )
 
-email = "no@no.no"
-name = Faker::Name.name
-password = "password"
-User.create!(
-  email: email,
-  name: name,
-  password: password,
-  password_confirmation: password,
-)
 
-user = User.all.order(created_at: :desc).first
-user_id = user.id
+#Create users
+for num in 1..5 do
+  email = num.to_s + "@gmail"
+  name = Faker::Name.name
+  password = "password"
+  image_url = File.open(Dir.glob(File.join(Rails.root, 'sampleusers', '*'))[num - 1])
+  User.create!(
+    email: email,
+    name: name,
+    avatar: image_url,
+    password: password,
+    password_confirmation: password,
+  )
+end
 
-# 質問と回答１
-title ="これはテスト用の質問です。"
-content = 
-"
-お世話になっております。
-ruby初心者です。
 
-ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
-ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
-ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
-ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ？
-ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
-
-以上、よろしくお願い致します。
-"
-
-Question.create!(
-  user_id: user_id,
-  title: title,
-  content: content,
-)
-
-question = Question.all.order(created_at: :desc).first
-question_id = question.id
+#Create questions and the others
 
 Ans1 = 
 "
@@ -80,7 +63,6 @@ Ans1 =
 ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
 ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
 ｘｘｘｘｘｘｘｘｘｘｘ。
-
 "
 
 Ans2 = 
@@ -95,18 +77,175 @@ Ans2 =
 
 Ans3 = 
 "
+特に指定が無ければ
+ｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘ。
+"
+
+Ans4 = 
+"
+既に解決済みかもしれませんが
 ｘｘｘｘｘｘｘｘｘ。
 ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
 ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
 ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
 "
 
-arr = [Ans1, Ans2, Ans3]
+Ans5 = 
+"
+補足となりますが
+ｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘ。
+"
 
-arr.each do |n|
-  Answer.create!(
-  question_id: question_id,
-  user_id: user_id,
-  content: n,
-  )
-end
+Ans6 = 
+"
+横から失礼します
+ｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘ。
+ｘｘｘｘｘｘｘｘｘ。
+"
+# answers_array
+answers = [Ans1, Ans2, Ans3, Ans4, Ans5, Ans6]
+
+# seach users ordered by id
+users = User.all.order(:id)
+
+users.each { |user| 
+  question_user_id = user.id
+  tag_id_array = [*1..25].sample(3).sort
+  tag_id_array.each do |tag_id|
+    tag = Tag.find(tag_id)
+    # Quesiton
+    title = "これは" + tag.name + "に関する質問です。"
+    content = 
+    "お世話になっております。" + tag.name + "についての質問です。
+    ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+    ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+    ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+    ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ？
+    ｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘｘ。
+    以上、よろしくお願い致します。"
+    # create question
+    Question.create!(
+      user_id: question_user_id,
+      title: title,
+      content: content,
+    )
+    
+    question_id = Question.all.order(:id).last.id
+    
+    # tag_relations 
+    TagRelation.create!(
+      question_id: question_id,
+      tag_id: tag_id,
+    )
+    # set second tag (one in third that this will be created)
+    if rand(3) + 1 == 1
+      second_tag_id = [*1..25].reject{ |tag| tag == tag_id }.sample
+      TagRelation.create!(
+        question_id: question_id,
+        tag_id: second_tag_id,
+      )
+      # set third tag (this will rarely happen)
+      if rand(2) + 1 == 1
+        third_tag_id = [*1..25].reject{ |tag| (tag == tag_id) || (tag == second_tag_id) }.sample
+        TagRelation.create!(
+          question_id: question_id,
+          tag_id: third_tag_id,
+        )
+      end
+    end
+    
+    # favorites and question_votes
+    if rand(3) + 1 == 1
+      the_other_users_id = users.pluck(:id).reject{ |id| id == question_user_id }.sample(4)
+      the_other_users_id.each do |other_user_id|
+        #  one in third the_other_users will bookmark this question
+        if rand(3) + 1 == 1
+          # favorites
+          Favorite.create!(
+            user_id: other_user_id,
+            question_id: question_id,
+          )
+          # votes for question
+          # 1/4 is negative
+          if rand(4) + 1 == 1
+            Vote.create!(
+              user_id: other_user_id,
+              question_id: question_id,
+              is_positive: false,
+            )
+            # decrement user's score
+            User.where(:id => question_user_id).last.increment(:score , -1).save!
+            # increment question's nega_counts
+            Question.where(:id => question_id).last.increment(:nega_counts , 1).save!
+          else # 3/4 is positive
+            Vote.create!(
+              user_id: other_user_id,
+              question_id: question_id,
+              is_positive: true,
+            )
+            # increment user's score
+            User.where(:id => question_user_id).last.increment(:score , 1).save!
+            # increment question's posi_counts
+            Question.where(:id => question_id).last.increment(:posi_counts , 1).save!
+          end
+        end
+      end
+    end
+    
+    # answers
+    answers.each do |ans|
+      if rand(2) + 1 == 1
+        # get other answer_user's ID (remove questioner's id from users_array and pick 1 other user_id randomly)
+        answer_user_id = users.pluck(:id).reject{ |id| id == question_user_id }.sample
+        Answer.create!(
+          question_id: question_id,
+          user_id: answer_user_id,
+          content: ans,
+        )
+        answer_id = Answer.all.order(:id).last.id
+        # vote percentage 1/3 
+        if rand(2) + 1 == 1
+          # votes for answer
+          # vote_user is some one except for answer_user
+          voter_user_id = users.pluck(:id).reject{ |id| id == answer_user_id }.sample
+          # 1/4 is negative
+          if rand(4) + 1 == 1
+            Vote.create!(
+              user_id: voter_user_id,
+              question_id: question_id,
+              answer_id: answer_id,
+              is_positive: false,
+            )
+            # decrement user's score
+            User.where(:id => answer_user_id).last.increment(:score , -1).save!
+            # increment question's nega_counts
+            Answer.where(:id => answer_id).last.increment(:nega_counts , 1).save!
+          else # 3/4 is positive
+            Vote.create!(
+              user_id: voter_user_id,
+              question_id: question_id,
+              is_positive: true,
+            )
+            # increment user's score
+            User.where(:id => answer_user_id).last.increment(:score , 1).save!
+            # increment question's posi_counts
+            Answer.where(:id => answer_id).last.increment(:posi_counts , 1).save!
+          end
+        end
+      end
+    end
+  end
+}
