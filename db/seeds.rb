@@ -42,9 +42,11 @@ for num in 1..5 do
   email = num.to_s + "@gmail"
   name = Faker::Name.name
   password = "password"
+  image_url = File.open(Dir.glob(File.join(Rails.root, 'sampleusers', '*'))[num - 1])
   User.create!(
     email: email,
     name: name,
+    avatar: image_url,
     password: password,
     password_confirmation: password,
   )
