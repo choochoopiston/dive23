@@ -4,7 +4,7 @@
   <div class="col-sm-4">
     <ul class="nav nav-pills nav-stacked">
       <li><%= link_to 'プロフィール', edit_user_registration_path %></li>
-      <li><%= link_to "削除", registration_path(resource_name), data: { confirm: "本当に削除しますか？" }, method: :delete %></li> <%#  TODO n.uchiyama 関連レコードがある状態でuserを物理削除出来ないのでuserも論理削除に変える。%>
+      <li><%= link_to "削除", registration_path(resource_name), data: { confirm: "本当に削除しますか？" }, method: :delete %></li>
     </ul>
   </div>
   <div class="col-sm-8">
