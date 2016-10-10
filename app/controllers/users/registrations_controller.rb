@@ -7,15 +7,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
           @user.votes.each do |v|
             if v.answer_id.blank?
               if v.is_positive?
-                v.question.increment(:posi_counts, -1).save!
+                v.question.decrement(:posi_counts, 1).save!
               else
-                v.question.increment(:nega_counts, -1).save!
+                v.question.decrement(:nega_counts, 1).save!
               end
             else
               if v.is_positive?
-                v.answer.increment(:posi_counts, -1).save!
+                v.answer.decrement(:posi_counts, 1).save!
               else
-                v.answer.increment(:nega_counts, -1).save!
+                v.answer.decrement(:nega_counts, 1).save!
               end
             end
             v.deleted_flg = true
