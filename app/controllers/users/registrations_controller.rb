@@ -30,9 +30,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
           @user.deleted_flg = true
           @user.save!
           # sign out
-          #current_user = nil
-          #cookies.delete(:remember_token)
-          #format.html { redirect_to new_user_session_path, notice: 'ユーザーを削除しました。' }
           format.html { redirect_to users_sign_out_path, notice: 'ユーザーを削除しました。' }
         end
       rescue => e
