@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name
 
+  scope :active, -> { where(deleted_flg: false) }
+
   def favorite?(question)
     favorites.find_by(question_id: question.id)
   end

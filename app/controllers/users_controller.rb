@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :favorite]
 
   def index
-    @users = User.all.order(score: :desc, created_at: :asc)
+    @users = User.all.active.order(score: :desc, created_at: :asc)
   end
   
   def show
