@@ -178,6 +178,7 @@ users.each { |user|
             user_id: other_user_id,
             question_id: question_id,
           )
+          Question.find(question_id).increment(:favorite_counts, 1).save!
           # votes for question
           # 1/4 is negative
           if rand(4) + 1 == 1
@@ -187,9 +188,9 @@ users.each { |user|
               is_positive: false,
             )
             # decrement user's score
-            User.where(:id => question_user_id).last.increment(:score , -1).save!
+            User.find(question_user_id).increment(:score , -1).save!
             # increment question's nega_counts
-            Question.where(:id => question_id).last.increment(:nega_counts , 1).save!
+            Question.find(question_id).increment(:nega_counts , 1).save!
           else # 3/4 is positive
             Vote.create!(
               user_id: other_user_id,
@@ -197,9 +198,9 @@ users.each { |user|
               is_positive: true,
             )
             # increment user's score
-            User.where(:id => question_user_id).last.increment(:score , 1).save!
+            User.find(question_user_id).increment(:score , 1).save!
             # increment question's posi_counts
-            Question.where(:id => question_id).last.increment(:posi_counts , 1).save!
+            Question.find(question_id).increment(:posi_counts , 1).save!
           end
         end
       end
@@ -230,19 +231,20 @@ users.each { |user|
               is_positive: false,
             )
             # decrement user's score
-            User.where(:id => answer_user_id).last.increment(:score , -1).save!
+            User.find(answer_user_id).increment(:score , -1).save!
             # increment question's nega_counts
-            Answer.where(:id => answer_id).last.increment(:nega_counts , 1).save!
+            Answer.find(answer_id).increment(:nega_counts , 1).save!
           else # 3/4 is positive
             Vote.create!(
               user_id: voter_user_id,
               question_id: question_id,
+              answer_id: answer_id,
               is_positive: true,
             )
             # increment user's score
-            User.where(:id => answer_user_id).last.increment(:score , 1).save!
+            User.find(answer_user_id).increment(:score , 1).save!
             # increment question's posi_counts
-            Answer.where(:id => answer_id).last.increment(:posi_counts , 1).save!
+            Answer.find(answer_id).increment(:posi_counts , 1).save!
           end
         end
       end
