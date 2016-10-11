@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     :registrations => 'users/registrations'
   }
   devise_scope :user do
-    get 'users/delete_sign_out' => 'users/sessions#destroy'
+    get '/users/delete_sign_out' => 'users/sessions#destroy'
   end
   resources :users, only: [:index, :show] do
     member do
