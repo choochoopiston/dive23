@@ -24,7 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           # soft delete user (change user to Anonymous)
           @user.name = "匿名ユーザー"
           @user.remove_avatar = true
-          @user.email = "deleted_" + @user.email
+          @user.email = DateTime.now.strftime('%Y%m%d%H%M%S') + "_" +  @user.email
           @user.profile = ""
           @user.score = 0
           @user.deleted_flg = true
