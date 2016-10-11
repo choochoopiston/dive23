@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           @user.deleted_flg = true
           @user.save!
           # sign out
-          format.html { redirect_to users_sign_out_path, notice: 'ユーザーを削除しました。' }
+          format.html { redirect_to users_delete_sign_out_path, notice: 'ユーザーを削除しました。' }
         end
       rescue => e
         format.html { redirect_to edit_user_registration_path, notice: 'ユーザーの削除に失敗しました。' }
