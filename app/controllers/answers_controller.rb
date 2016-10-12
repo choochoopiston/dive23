@@ -16,12 +16,32 @@ class AnswersController < ApplicationController
   end
   
   def destroy
-    @question = @answer.question
-    @answer.deleted_flg = true
-    @answer.save
-    
-    respond_to do |format|
-      format.html { redirect_to question_path(@question), notice: '回答が削除されました。' }
+    begin
+      ActiveRecord::Base.transaction do
+        @question = @answer.question
+        @answer.votes.each do |v|
+          unless v.answer_id.blank?
+            if v.is_positive == true
+              v.answer.decrement(:posi_counts, 1).save!
+            else
+              v.answer.decrement(:nega_counts, 1).save!
+            end
+          end
+          v.deleted_flg = true
+          v.save!
+        end
+        @answer.deleted_flg = true
+        @answer.save!
+        respond_to do |format|
+          format.html { redirect_to question_path(@question), notice: '回答が削除されました。' }
+        end
+      end
+    rescue => e
+      respond_to do |format|
+        format.html { redirect_to :back, notice: '回答を削除出来ませんでした。' }
+      end
+      Rails.logger.error e.message
+      Rails.logger.error e.backtrace.join("\n")
     end
   end
   
@@ -33,7 +53,6 @@ class AnswersController < ApplicationController
     def check_mine
       @answer = Answer.find(params[:id])
       unless @answer.user.id == current_user.id
-        #TODO m.kitamura メッセージ定義
         #TODO m.kitamura View実装が済み次第、遷移先変更
         redirect_to :questions, notice: '編集権限がありません'
       end
