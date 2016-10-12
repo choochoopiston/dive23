@@ -70,11 +70,50 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    #TODO n.uchiyama ここで同時に関連するTagRelationの論理削除を行う
-    @question.deleted_flg = true
-    @question.save
-    respond_to do |format|
-      format.html { redirect_to questions_url, notice: '質問を削除しました。' }
+    begin
+      ActiveRecord::Base.transaction do
+        @question.favorites.each do |f|
+          @question.decrement(:favorite_counts, 1).save!
+          f.deleted_flg = true
+          f.save!
+        end
+        @question.tag_relations.each do |t|
+          t.deleted_flg = true
+          t.save!
+        end
+        @question.votes.each do |v|
+          if v.answer_id.blank?
+            if v.is_positive == true
+              @question.decrement(:posi_counts, 1).save!
+            else
+              @question.decrement(:nega_counts, 1).save!
+            end
+          else
+            if v.is_positive == true
+              v.answer.decrement(:posi_counts, 1).save!
+            else
+              v.answer.decrement(:nega_counts, 1).save!
+            end
+          end
+            v.deleted_flg = true
+            v.save!
+        end
+        @question.answers.each do |a|
+          a.deleted_flg = true
+          a.save!
+        end
+        @question.deleted_flg = true
+        @question.save!
+        respond_to do |format|
+          format.html { redirect_to questions_url, notice: '質問を削除しました。' }
+        end
+      end
+    rescue => e
+      respond_to do |format|
+        format.html { redirect_to :back, notice: '質問を削除出来ませんでした。' }
+      end
+      Rails.logger.error e.message
+      Rails.logger.error e.backtrace.join("\n")
     end
   end
 
