@@ -11,14 +11,20 @@ Rails.application.routes.draw do
       get 'tagged'
     end
   end
-  devise_for :users
+  devise_for :users, :controllers => {
+    :registrations => 'users/registrations'
+  }
+  devise_scope :user do
+    get '/users/delete_sign_out' => 'users/sessions#destroy'
+  end
   resources :users, only: [:index, :show] do
     member do
       get 'favorite'
     end
   end
-  
+
   resources :tags,  only: [:index]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
