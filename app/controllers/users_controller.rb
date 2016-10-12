@@ -3,9 +3,13 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :favorite]
 
   def index
-    @users = User.all.active.order(score: :desc, created_at: :asc)
+    if params[:tab] == "new"
+      @users = User.all.active.order(created_at: :desc)
+    else
+      @users = User.all.active.order(score: :desc, created_at: :asc)
+    end
   end
-  
+
   def show
     case params[:tab]
     when "answer"
@@ -24,11 +28,11 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   def favorite
     @favorites = @user.favorites.order("created_at DESC")
   end
-  
+
   private
     def set_user
       @user = User.find(params[:id])

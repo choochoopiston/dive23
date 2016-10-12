@@ -1,15 +1,16 @@
-<div class="row">
-  <%= render 'layouts/menu' %>
-  <div class="col-sm-9">
-    <ul class="nav nav-tabs">
-      <li class="pull-left"><h4>すべての質問</h4></li>
-      <li class="pull-right <%= 'active' if params[:tab] == 'favorite' %>"><%= link_to '人気', questions_path(tab: :favorite) %></li>
-      <li class="pull-right <%= 'active' if params[:tab] == 'active' or current_page?(root_path) %>"><%= link_to 'アクティブ', questions_path(tab: :active) %></li>
-    </ul>
-    <%= render 'index', question: @questions %>
-  </div>
-  <div class="col-sm-3">
-    <div class="all_questions_count"><%= @questions.count %></div>
-    質問
-  </div>
+<div class="col-sm-9">
+  <ul class="nav nav-tabs">
+    <li class="pull-left"><h4>すべての質問</h4></li>
+    <li class="pull-right <%= 'active' if params[:tab] == 'favorite' %>"><%= link_to '人気', questions_path(tab: :favorite) %></li>
+    <li class="pull-right <%= 'active' if params[:tab] == 'active' or current_page?(root_path) %>"><%= link_to 'アクティブ', questions_path(tab: :active) %></li>
+  </ul>
+  <%= render 'index', question: @questions %>
+</div>
+<div class="col-sm-3">
+  <div class="all_questions_count"><%= @questions.count %></div>
+  <p>質問</p>
+  <p>最近のタグ</p>
+  <% Tag.all.order(created_at: :desc).each do |tag| %>
+    <p><%= link_to tag.name, tagged_questions_path(tag_id: tag, tab: :newest), { :class => "tag" }%></p>
+  <% end  %>
 </div>
