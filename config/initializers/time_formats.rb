@@ -7,4 +7,5 @@
 # カスタムフォーマットを定義
 Time::DATE_FORMATS[:md_and_HM] = "%-m月%e日 %k:%M"
 Time::DATE_FORMATS[:ymd_and_HM] = "%Y年%-m月%e日 %H時%M分"
+Time::DATE_FORMATS[:ymd_and_HM2] = "%y年%-m月%e日 %H:%M"
 Time::DATE_FORMATS[:ymd] = "%y年%-m月%e日"
