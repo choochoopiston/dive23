@@ -59,7 +59,7 @@
                     <i class="fa fa-question-circle-o fa-lg"></i>
                     <div class="btn-xs btn-success question_score"><%= question.posi_counts - question.nega_counts %></div>
                     <div class="question_heading"><%= link_to truncate(question.title, length: 30), question %></div>
-                    <div class="question_time"><%= question.created_at.to_s(:ymd) %></div>
+                    <div class="question_time"><%= question.created_at.to_s(:ymd_and_HM2) %></div>
                 </div>
             <% end %>
         <% end %>
@@ -72,7 +72,7 @@
                     <i class="fa fa-comment-o fa-lg"></i>
                     <div class="btn-xs btn-success answer_score"><%= answer.posi_counts - answer.nega_counts %></div>
                     <div class="answer_heading"><%= link_to truncate(answer.content, length: 30), answer.question %></div>
-                    <div class="answer_time"><%= answer.created_at.to_s(:ymd) %></div>
+                    <div class="answer_time"><%= answer.created_at.to_s(:ymd_and_HM2) %></div>
                 </div>
             <% end %>
         <% end %>
