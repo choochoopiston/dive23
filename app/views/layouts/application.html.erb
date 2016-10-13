@@ -10,9 +10,11 @@
   <body>
     <%= render 'layouts/header' %>
     <div id="contents_area" class="container">
-      <%= render 'layouts/menu' %>
-      <%= notice %><%= alert %>
-      <%= yield %>
+      <div class="row">
+        <%= render 'layouts/menu' %>
+        <%= notice %><%= alert %>
+        <%= yield %>
+      </div>
     </div>
     <%= render 'layouts/footer' %>
   </body>

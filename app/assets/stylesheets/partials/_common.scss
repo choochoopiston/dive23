@@ -1,7 +1,9 @@
 .top_menu {
-  margin: 10px 10px 30px;
+  margin: 10px 0px 30px;
 }
-
+.topbar-wrapper{
+  font-size: 12px;
+}
 .field {
   padding: 5px;
   margin: 10px;
@@ -22,25 +24,38 @@ a i:active {
 }
 
 @mixin menu-tab-top-border {
-    border-top-color: orange;
-    border-top-width: 3px;
-    border-radius: 0;
+  border-top-color: orange;
+  border-top-width: 3px;
+  border-radius: 0;
 }
 .nav-tabs > li.active > a {
-    @include menu-tab-top-border;
+  @include menu-tab-top-border;
     &:hover {
         @include menu-tab-top-border;
     }
 }
 
 .font_grey {
-    color: #999999;
+  color: #999999;
 }
 
 .mini_count {
-    font-size: 130%;
+  font-size: 130%;
 }
 
 .small_title {
-    font-size: 50%;
+  font-size: 50%;
 }
+
+.menu-btn {
+  @include button-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, 0.6, 0px);
+  background: #9fa6ad !important;
+  color: #FFF !important;
+  border: none !important;
+  border-radius:0px !important;
+    &:hover, &:focus, &:active {
+      background: #f69c55 !important;
+      color: #FFF !important;
+    }
+}
+
