@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
 
   def index
     @tags = Tag.all.order(created_at: :desc)
+    @tags = @tags[-20..-1] if @tags.length > 20
     case params[:tab] 
     when "active"
       @questions = Question.all.order(updated_at: :desc) #TODO n.uchiyama 紐づくanswersの更新日時とソート順を考慮する必要あり
