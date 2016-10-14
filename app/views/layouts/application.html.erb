@@ -8,12 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <%= render 'layouts/header' %>
-    <div id="contents_area" class="container">
-      <div class="row">
-        <%= render 'layouts/menu' %>
-        <%= notice %><%= alert %>
-        <%= yield %>
+    <div id="wrap">
+      <%= render 'layouts/header' %>
+      <div id="contents_area" class="container">
+        <div class="row">
+          <%= render 'layouts/menu' %>
+          <%= notice %><%= alert %>
+          <%= yield %>
+        </div>
       </div>
     </div>
     <%= render 'layouts/footer' %>
