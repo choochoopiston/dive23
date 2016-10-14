@@ -17,7 +17,7 @@
         <div class="row">
           <div class="col-sm-3 answer_useronly">
             <% if answer.user == current_user %>
-            　<%= link_to '編集', "#", class: "font_grey" %>&emsp;<%= link_to "削除", question_answer_path(question, answer), method: :delete, class: "font_grey",  data: { confirm: '本当に削除していいですか？'} %>
+            <%#= link_to '編集', "#", class: "font_grey" %>&emsp;<%= link_to "削除", question_answer_path(question, answer), method: :delete, class: "font_grey",  data: { confirm: '本当に削除していいですか？'} %>
             <% end %>
           </div>
           <div class="col-sm-offset-6 col-sm-3 answer_user">
