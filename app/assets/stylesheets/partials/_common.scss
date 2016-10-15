@@ -1,3 +1,15 @@
+html,
+body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -30px;
+  padding: 0 0 30px;
+}
+
 .top_menu {
   margin: 10px 0px 30px;
 }
@@ -9,10 +21,10 @@
   margin: 10px;
 }
 
+
 .contribution_up {
   margin-top: -10px;
 }
-
 
 a i:active {
   color: orange;
@@ -60,6 +72,7 @@ a i:active {
 }
 
 .footer {
+  height: 30px;
   margin-top: 30px;
   background-color: rgba(12,13,14,0.86);
   background-image: -moz-linear-gradient(top, #222222, #111111);
